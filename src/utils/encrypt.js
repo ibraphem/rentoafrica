@@ -1,5 +1,5 @@
 import CryptoJS from "crypto-js";
-import dotenv from 'dotenv'
+import * as dotenv from 'dotenv'
 
 export const aesEncryption = (data) => {
 
