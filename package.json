@@ -90,9 +90,7 @@
       "last 1 safari version"
     ]
   },
-  "browser": {
-    "fs": false,
-    "path": false,
-    "os": false
+  "devDependencies": {
+    "dotenv-webpack": "^8.0.1"
   }
 }
