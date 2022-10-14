@@ -31,7 +31,7 @@ const PublicHeader = () => {
                   </Link>
                   <Link to="/register/agent">
                     <FaHouseDamage/>
-                    Upload Property and Earn
+                    Enlist Property and Earn
                   </Link>
           
                 </div>
