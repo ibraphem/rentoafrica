@@ -1,0 +1,67 @@
+import * as yup from "yup";
+const passwordRules = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+// min 6 characters, 1 upper case letter, 1 lower case letter, 1 numeric digit.
+export const signupSchema = yup.object().shape({
+  name: yup.string().min(5, "Name must be at least 5 characters long").required("Your name is required"),
+  phoneNo: yup
+    .string()
+    .required("Your Phone Number is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(11, "Must be exactly 11 digits")
+    .max(11, "Must be exactly 11 digits"),
+  email: yup.string().email("Please enter a valid email").required("Your Email is required"),
+  password: yup
+    .string()
+    .min(5, "Password must be at least 6 characters long")
+    .matches(passwordRules, { message: "Password must have at least: 1 uppercase and 1 digit" })
+    .required("You must enter password"),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match")
+    .required("Please confirm password"),
+});
+
+export const corporateSignupSchema = yup.object().shape({
+  name: yup.string().min(5, "Name must be at least 5 characters long").required("Company's name is required"),
+  phoneNo: yup
+    .string()
+    .required("Phone Number is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(11, "Must be exactly 11 digits")
+    .max(11, "Must be exactly 11 digits"),
+  email: yup.string().email("Please enter a valid email").required("Email is required"),
+  cacRegNo: yup.string().required("Enter CAC Registration Number"),
+  website: yup
+  .string()
+  .matches(
+    /((https?):\/\/)?(www.)?[a-z0-9]+(\.[a-z]{2,}){1,3}(#?\/?[a-zA-Z0-9#]+)*\/?(\?[a-zA-Z0-9-_]+=[a-zA-Z0-9-%]+&?)?$/,
+    "Enter valid url!"
+  )
+  .required("Please enter website"),
+  stateId: yup.string().required("Select state"),
+  address: yup.string().min(10, "Address must be at least 10 characters long").required("Company's address is required"),
+  industryType: yup.string().required("Select Industry Type"),
+});
+
+export const passwordValidationSchema = yup.object().shape({
+  password: yup
+  .string()
+  .min(5, "Password must be at least 6 characters long")
+  .matches(passwordRules, { message: "Password must have at least: 1 uppercase and 1 digit" })
+  .required("You must enter password"),
+confirmPassword: yup
+  .string()
+  .oneOf([yup.ref("password"), null], "Passwords must match")
+  .required("Please confirm password")
+})
+
+export const signinSchema = yup.object().shape({
+  email: yup.string().email("Please enter a valid email").required("Your Email is required"),
+  password: yup.string().required("You Password is required"),
+});
+
+export const advancedSchema = yup.object().shape({
+  username: yup.string().min(3, "Username must be at least 3 characters long").required("Required"),
+  jobType: yup.string().oneOf(["designer", "developer", "manager", "other"], "Invalid Job Type").required("Required"),
+  acceptedTos: yup.boolean().oneOf([true], "Please accept the terms of service"),
+});
