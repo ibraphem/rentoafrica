@@ -4,6 +4,7 @@ import PublicHeader from '../layout/header/PublicHeader';
 import Properties from '../layout/apartment/Properties';
 import PageTitle from '../layout/pageTitle/PageTitle';
 import { rentData } from '../mock/rentData';
+import Error from '../layout/error/Error';
 
 
 const FavouriteApartment = () => {
