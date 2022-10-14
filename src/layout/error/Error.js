@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import "../error/Error.css"
+import "../../assets/css/publicStyles/error.css"
 
 
 const Error = ({errorCode, errorTitle, errorDesc}) => {
