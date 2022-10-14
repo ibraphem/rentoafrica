@@ -12,7 +12,6 @@ import {
   FaAddressCard,
   FaNetworkWired,
   FaArrowAltCircleRight,
-  FaArrowLeft,
   FaArrowAltCircleLeft,
 } from "react-icons/fa";
 import "../assets/css/publicStyles/auth.css";
@@ -87,7 +86,7 @@ const CorporateRegister = () => {
         <Container>
           <div className="register-box login-box">
             <div className="login-page-heading">
-              <h3> {step == 1 ? "Register" : <span onClick={() => setStep(1)}><FaArrowAltCircleLeft/> Go Back</span>}</h3>
+              <h3> {step === 1 ? "Register" : <span onClick={() => setStep(1)}><FaArrowAltCircleLeft/> Go Back</span>}</h3>
             </div>
 
             <form onSubmit={ handleSubmit} autoComplete="off">
