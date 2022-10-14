@@ -4,7 +4,7 @@ import Head from "./head/Head";
 import Header from "./header/Header";
 import Footer from "./footer/Footer";
 import classNames from "classnames";
-import AgentDashboard from "../screens/AgentDashboard";
+
 
 const Layout = ({children}) => {
   //Sidebar

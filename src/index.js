@@ -5,7 +5,6 @@ import storeInit from "./redux/store";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
-const Error404 = lazy(() => import("./screens/Error404"));
 
 ReactDOM.render(
   <React.Fragment>

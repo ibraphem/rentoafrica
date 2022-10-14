@@ -19,19 +19,13 @@ import {
   DataTableItem,
   Button,
 } from "../components/Component";
-import { Link } from "react-router-dom";
 import { apartmentData } from "../mock/apartments";
 import Layout from "../layout/Index";
 import { amountFormat } from "../utils/format";
 
 const AgentDashboard = () => {
     const [onSearch, setonSearch] = useState(true);
-    const [onSearchText, setSearchText] = useState("");
-  
-    const onFilterChange = (e) => {
-      setSearchText(e.target.value);
-    };
-  
+   
   
     const toggle = () => setonSearch(!onSearch);
   return (

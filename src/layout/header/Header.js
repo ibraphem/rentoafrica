@@ -1,10 +1,8 @@
 import React from "react";
 import classNames from "classnames";
 import Toggle from "../sidebar/Toggle";
-import Logo from "../logo/Logo";
-import News from "../news/News";
 import User from "./dropdown/user/User";
-import Notification from "./dropdown/notification/Notification";
+
 
 const Header = ({ fixed, theme, className, setVisibility, ...props }) => {
   const headerClass = classNames({
