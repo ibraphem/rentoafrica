@@ -1,6 +1,9 @@
 import CryptoJS from "crypto-js";
+import dotenv from 'dotenv'
 
 export const aesEncryption = (data) => {
+
+  dotenv.config()
 
   const iv = process.env.REACT_APP_ENCRYPTION_IV
   const key = process.env.REACT_APP_ENCRYPTION_KEY
