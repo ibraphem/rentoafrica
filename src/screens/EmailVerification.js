@@ -19,7 +19,7 @@ const EmailVerification = () => {
 
 
     
-    useEffect(async() => {
+    useEffect(() => {
     
       const emailVerify = async() => {
         let res = (await verifyEmail(params?.code))?.data
