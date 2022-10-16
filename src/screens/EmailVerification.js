@@ -46,7 +46,7 @@ const EmailVerification = () => {
     
     useEffect(() => {
       emailVerify()
-    }, [params?.code])
+    }, [params?.code, emailVerify])
     
     return (
         <section className="gauto-notfound-area section_70">
