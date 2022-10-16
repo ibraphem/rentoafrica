@@ -72,7 +72,7 @@ const PersonalForm = (props) => {
                   <option label={apartment?.type} value={apartment?.id}></option>
                 ))}
               </select>
-              {errors.lastName && <span className="invalid">This field is required</span>}
+              {errors.propertyCondition && <span className="invalid">This field is required</span>}
             </div>
           </FormGroup>
         </Col>
@@ -462,37 +462,15 @@ const config = {
 const AddRentApartment = () => {
   return (
     <Layout>
-      <Head title="Wizard Form" />
+      <Head title="Add rent apartment" />
       <Content page="component">
-        <BlockHead size="lg" wide="sm">
-          <BlockHeadContent>
-            <BackTo link="/components" icon="arrow-left">
-              Components
-            </BackTo>
-            <BlockTitle tag="h2" className="fw-normal">
-              Wizard Form
-            </BlockTitle>
-            <BlockDes>
-              <p className="lead">
-                Using the{" "}
-                <a href="https://www.npmjs.com/package/react-step-builder/" target="_blank" rel="noreferrer">
-                  React Step Builder
-                </a>{" "}
-                , you can simply make step based form. It can be combined with{" "}
-                <a href="https://react-hook-form.com/" target="_blank" rel="noreferrer">
-                  React Hook Form
-                </a>{" "}
-                package for form validation.
-              </p>
-            </BlockDes>
-          </BlockHeadContent>
-        </BlockHead>
+      
 
         <Block size="lg">
           <BlockHead>
             <BlockHeadContent>
-              <BlockTitle tag="h5">Wizard Form - Basic</BlockTitle>
-              <p>A basic demonstration of wizard form basic.</p>
+              <BlockTitle tag="h5">Add Apartment</BlockTitle>
+              {/* <p>A basic demonstration of wizard form basic.</p> */}
             </BlockHeadContent>
           </BlockHead>
           <PreviewCard>
