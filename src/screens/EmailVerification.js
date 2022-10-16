@@ -17,36 +17,38 @@ const EmailVerification = () => {
     const [verificationStatus, setVerificationStatus] = useState(true)
     
 
-    const emailVerify = async() => {
-      let res = (await verifyEmail(params?.code))?.data
-     console.log(res);
-
-      if(res) {
-        if(res?.status){
-          setDesc("Verified. Redirecting to sign in page...")
-          setTimeout(() => {
-            
-             history.push("/login")
-             return
-          }, 7000);
-         
-        }else {
-           setDesc("Email Verification Failed.")
-      setVerificationStatus(false)
-          dispatch(setAlertModal({status: true, type:"failed", message: res?.message}))
-          
-        }
-      }else {
-         setDesc("Email Verification Failed.")
-      setVerificationStatus(false)
-        dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
-      }
-     
-    }
+ 
     
     useEffect(() => {
+      const emailVerify = async() => {
+        let res = (await verifyEmail(params?.code))?.data
+       console.log(res);
+  
+        if(res) {
+          if(res?.status){
+            setDesc("Verified. Redirecting to sign in page...")
+            setTimeout(() => {
+              
+               history.push("/login")
+               return
+            }, 7000);
+           
+          }else {
+             setDesc("Email Verification Failed.")
+        setVerificationStatus(false)
+            dispatch(setAlertModal({status: true, type:"failed", message: res?.message}))
+            
+          }
+        }else {
+           setDesc("Email Verification Failed.")
+        setVerificationStatus(false)
+          dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
+        }
+       
+      }
+      
       emailVerify()
-    }, [params?.code, emailVerify])
+    }, [params?.code])
     
     return (
         <section className="gauto-notfound-area section_70">
