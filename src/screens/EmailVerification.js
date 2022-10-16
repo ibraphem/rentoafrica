@@ -45,11 +45,10 @@ const EmailVerification = () => {
     }
     
     useEffect(() => {
-      const check = async() => {
+      if(params?.code) {
         emailVerify()
       }
 
-      check()
     }, [params?.code])
     
     return (
