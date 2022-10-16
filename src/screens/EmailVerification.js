@@ -24,11 +24,8 @@ const EmailVerification = () => {
       if(res) {
         if(!res?.status){
           setDesc("Verified. Redirecting to sign in page...")
-          setTimeout(() => {
-            
-             history.push("/login")
-             return
-          }, 7000);
+          history.push("/login")
+          return
          
         }else {
            setDesc("Email Verification Failed.")
@@ -45,9 +42,9 @@ const EmailVerification = () => {
     }
     
     useEffect(() => {
-      if(params?.code) {
+    
         emailVerify()
-      }
+
 
     }, [params?.code])
     
