@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -17,12 +17,12 @@ const EmailVerification = () => {
     const [verificationStatus, setVerificationStatus] = useState(true)
     
 
-    const emailVerify = useCallback(async() => {
+    const emailVerify = async() => {
       let res = (await verifyEmail(params?.code))?.data
      console.log(res);
 
       if(res) {
-        if(res?.status){
+        if(!res?.status){
           setDesc("Verified. Redirecting to sign in page...")
           setTimeout(() => {
             
@@ -42,10 +42,14 @@ const EmailVerification = () => {
         dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
       }
      
-    })
+    }
     
     useEffect(() => {
-      emailVerify()
+      const check = async() => {
+        emailVerify()
+      }
+
+      check()
     }, [params?.code])
     
     return (
