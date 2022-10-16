@@ -21,27 +21,27 @@ const EmailVerification = () => {
     
     useEffect(() => {
     
-      const emailVerify = async() => {
+      async function emailVerify() {
         let res = (await verifyEmail(params?.code))?.data
        console.log(res);
   
-        if(res) {
-          if(!res?.status){
-            setDesc("Verified. Redirecting to sign in page...")
-            history.push("/login")
-            return
+        // if(res) {
+        //   if(!res?.status){
+        //     setDesc("Verified. Redirecting to sign in page...")
+        //     history.push("/login")
+        //     return
            
-          }else {
-             setDesc("Email Verification Failed.")
-        setVerificationStatus(false)
-            dispatch(setAlertModal({status: true, type:"failed", message: res?.message}))
+        //   }else {
+        //      setDesc("Email Verification Failed.")
+        // setVerificationStatus(false)
+        //     dispatch(setAlertModal({status: true, type:"failed", message: res?.message}))
             
-          }
-        }else {
-           setDesc("Email Verification Failed.")
-        setVerificationStatus(false)
-          dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
-        }
+        //   }
+        // }else {
+        //    setDesc("Email Verification Failed.")
+        // setVerificationStatus(false)
+        //   dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
+        // }
        
       }
 
