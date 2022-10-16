@@ -175,17 +175,17 @@ const Rent = () => {
                     <li>
                       <FaHome /> {rentDataDetail?.condition}
                     </li>
-                    <li>
+                    {/* <li>
                       <FaUtensilSpoon /> {rentDataDetail?.kitchen} Kitchen(s)
-                    </li>
+                    </li> */}
                   </ul>
                   <ul>
                     <li>
                       <FaBed /> {rentDataDetail?.bedroom} Bedrooms
                     </li>
-                    <li>
+                    {/* <li>
                       <FaChair /> {rentDataDetail?.livingRoom} Living Room
-                    </li>
+                    </li> */}
                     <li>
                       <FaBars /> {rentDataDetail?.furnished}
                     </li>

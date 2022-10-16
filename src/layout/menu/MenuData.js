@@ -7,7 +7,7 @@ const menu = [
   {
     icon: "plus",
     text: "Add New",
-    link: "/new",
+    link: "/new-apartment",
   },
   
   // {

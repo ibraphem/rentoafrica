@@ -65,3 +65,16 @@ export const advancedSchema = yup.object().shape({
   jobType: yup.string().oneOf(["designer", "developer", "manager", "other"], "Invalid Job Type").required("Required"),
   acceptedTos: yup.boolean().oneOf([true], "Please accept the terms of service"),
 });
+
+export const enlistDetailSchema = yup.object().shape({
+  propertyType: yup.string().required("Select Property Type"),
+  propertyCondition: yup.string().required("Select Property Condition"),
+  propertyStatus: yup.string().required("Select Furniture status"),
+  propertyNoOfToilet: yup.string().required("Select No of bathroom/toilet"),
+  rentFeeUnit: yup.string().required("Select an Option"),
+  rentFee: yup
+    .string()
+    .required("Rent Fee is required")
+    .matches(/^[0-9]+$/, "Must be only digits"),
+
+});

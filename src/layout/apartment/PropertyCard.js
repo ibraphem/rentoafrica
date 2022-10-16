@@ -66,7 +66,7 @@ const PropertyCard = ({data, isfavScreen = false}) => {
             className={checkIsFavRent(data?.id) ? "offer-btn-2 disabled-link" : "offer-btn-2"}
             onClick={() => dispatch(addToFavoriteRent(data))} 
           >
-             Add to Favorite
+             Favorite
           </Link>
           )}
           </div>

@@ -153,10 +153,6 @@ export const apartmentData = [
 
   export const apartments = [
     {
-        "id": "0",
-        "type": "Any Apartment",
-    },
-    {
         "id": "1",
         "type": "Self Contain",
     },
@@ -180,4 +176,92 @@ export const apartmentData = [
         "id": "6",
         "type": "Service Apartment",
     },
+]
+
+export const apartmentCondion = [
+  {
+      "id": "1",
+      "type": "Newly Built",
+  },
+  {
+      "id": "2",
+      "type": "Neatly Used",
+  },
+  {
+      "id": "3",
+      "type": "Recently renovated",
+  },
+  {
+      "id": "4",
+      "type": "Not New",
+  },
+]
+
+export const furnishing = [
+  {
+      "id": "1",
+      "type": "Furnished",
+  },
+  {
+      "id": "2",
+      "type": "Semi-furnished",
+  },
+  {
+      "id": "3",
+      "type": "Not Furnished",
+  },
+]
+
+export const toilets = [
+  {
+      "id": "1",
+      "type": "1",
+  },
+  {
+      "id": "2",
+      "type": "2",
+  },
+  {
+      "id": "3",
+      "type": "3",
+  },
+  {
+      "id": "4",
+      "type": "4",
+  },
+  {
+    "id": "5",
+    "type": "5",
+},
+{
+  "id": "6",
+  "type": "Greater than 5",
+},
+]
+
+export const rentFeeUnit = [
+  {
+      "id": "1",
+      "type": "Per Annum",
+  },
+  {
+      "id": "2",
+      "type": "Every Six Month",
+  },
+  {
+      "id": "3",
+      "type": "Every three months",
+  },
+  {
+      "id": "4",
+      "type": "Per Month",
+  },
+  {
+    "id": "5",
+    "type": "Per day",
+},
+{
+  "id": "6",
+  "type": "Others",
+},
 ]
