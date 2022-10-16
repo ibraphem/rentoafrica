@@ -26,9 +26,12 @@ const EmailVerification = () => {
        console.log(res);
   
         if(res) {
-          if(!res?.status){
+          if(res?.status){
             setDesc("Verified. Redirecting to sign in page...")
-            history.push("/login")
+            setTimeout(() => {
+              history.push("/login");
+            }, 5000);
+         
             return
            
           }else {
