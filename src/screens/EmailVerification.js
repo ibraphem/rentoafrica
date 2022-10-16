@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaRegTimesCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
@@ -17,36 +17,34 @@ const EmailVerification = () => {
     const [verificationStatus, setVerificationStatus] = useState(true)
     
 
- 
-    
-    useEffect(() => {
-      const emailVerify = async() => {
-        let res = (await verifyEmail(params?.code))?.data
-       console.log(res);
-  
-        if(res) {
-          if(res?.status){
-            setDesc("Verified. Redirecting to sign in page...")
-            setTimeout(() => {
-              
-               history.push("/login")
-               return
-            }, 7000);
-           
-          }else {
-             setDesc("Email Verification Failed.")
-        setVerificationStatus(false)
-            dispatch(setAlertModal({status: true, type:"failed", message: res?.message}))
+    const emailVerify = useCallback(async() => {
+      let res = (await verifyEmail(params?.code))?.data
+     console.log(res);
+
+      if(res) {
+        if(res?.status){
+          setDesc("Verified. Redirecting to sign in page...")
+          setTimeout(() => {
             
-          }
+             history.push("/login")
+             return
+          }, 7000);
+         
         }else {
            setDesc("Email Verification Failed.")
-        setVerificationStatus(false)
-          dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
+      setVerificationStatus(false)
+          dispatch(setAlertModal({status: true, type:"failed", message: res?.message}))
+          
         }
-       
+      }else {
+         setDesc("Email Verification Failed.")
+      setVerificationStatus(false)
+        dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
       }
-      
+     
+    })
+    
+    useEffect(() => {
       emailVerify()
     }, [params?.code])
     
