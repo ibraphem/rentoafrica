@@ -17,8 +17,7 @@ import { Steps, Step } from "react-step-builder";
 import { FormGroup, Button } from "reactstrap";
 import Layout from "../layout/Index";
 import { apartmentCondion, apartments, furnishing, rentFeeUnit, toilets } from "../mock/apartments";
-import { useFormik } from "formik";
-import { enlistDetailSchema } from "../utils/formValidationSchema";
+
 
 const PersonalForm = (props) => {
   const [formData, setFormData] = useState({

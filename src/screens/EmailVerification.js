@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaRegTimesCircle, FaTimes } from "react-icons/fa";
+import { FaRegTimesCircle } from "react-icons/fa";
 import { useDispatch } from "react-redux";
 import { useHistory, useParams } from "react-router";
 import "../assets/css/publicStyles/error.css"
