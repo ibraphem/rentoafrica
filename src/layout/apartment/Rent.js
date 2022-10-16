@@ -4,8 +4,6 @@ import {
   FaToilet,
   FaHome,
   FaBed,
-  FaChair,
-  FaUtensilSpoon,
   FaBars,
 } from "react-icons/fa";
 import Slider from "react-slick";
