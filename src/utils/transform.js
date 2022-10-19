@@ -1,7 +1,3 @@
-export const amountFormat = (num) => {
-    return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-};
-
 export const fileToBase64 = (fileUpload, callbackFunc, removeDataPrefix = false) => {
     const fileName = fileUpload?.name;
     const reader = new FileReader();

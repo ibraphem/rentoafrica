@@ -10,10 +10,13 @@ import { login } from "../services/onboardingService";
 import { useDispatch } from "react-redux";
 import { aesEncryption } from "../utils/encrypt";
 import PublicHeader from "../layout/header/PublicHeader";
+import { saveUser } from "../redux/slices/userSlice";
+
 
 const Login = () => {
 
   const dispatch = useDispatch()
+
 
   const onSubmit = async(values, {resetForm}) => {
     dispatch(setLoader({status: true}))
@@ -24,9 +27,14 @@ const Login = () => {
     }
 
     const res = (await(login(body)))?.data 
+   
     if(res) {
-      dispatch(setAlertModal({status: true, type: res?.status ? "success" : "failed", message: res?.message}))
-      res?.status && resetForm({values: ""})
+      if(res?.status) {
+        console.log(res?.result);
+        dispatch(saveUser(res?.result))
+      }else{
+        dispatch(setAlertModal({status: true, type: "failed", message: res?.message}))
+      }
     }else {
       dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
     }

@@ -207,8 +207,8 @@ const CorporateRegister = () => {
                         <select
                           name="industryType"
                           onChange={handleChange}
-                          placeholder="Select Industry Type"
                           onBlur={handleBlur}
+                          placeholder="Select Industry Type"
                           className={errors.industryType && touched.industryType ? "input-error" : ""}
                         >
                           <option value="">Select Industry Type</option>

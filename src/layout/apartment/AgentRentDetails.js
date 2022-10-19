@@ -1,26 +1,42 @@
+import { useFormik } from "formik";
 import React from "react";
+import { enlistDetailSchema } from "../../utils/formValidationSchema";
+import { Row, Col, FormGroup, Button  } from "react-bootstrap";
+import { apartmentCondion, apartments, furnishing, rentFeeUnit, toilets } from "../../mock/apartments";
+import { useDispatch } from "react-redux";
+import { updateDetails } from "../../redux/slices/apartmentListingSlice";
+import { useSelector } from "react-redux";
 
-const AgentRentDetails = () => {
+const AgentRentDetails = ({props}) => {
+  const dispatch = useDispatch()
   const onSubmit = async (values, { resetForm }) => {
     console.log(values);
+    dispatch(updateDetails(values))
+    props.next()
   };
+
+  const details = useSelector((state) => state.apartmentListing?.details)
+
+  console.log(details);
 
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
-      propertyType: "",
-      propertyCondition: "",
-      propertyStatus: "",
-      propertyNoOfToilet: "",
-      rentFee: "",
-      rentFeeUnit: "",
-      description: "",
+      propertyType: details?.propertyType,
+      propertyCondition: details?.propertyCondition,
+      furnishing: details?.furnishing,
+      propertyNoOfToilet: details?.propertyNoOfToilet,
+      rentFee: details?.rentFee,
+      rentFeeUnit: details?.rentFeeUnit,
+      description: details?.description,
     },
-    validationSchema: step === 1 ? corporateSignupSchema : passwordValidationSchema,
+    validationSchema: enlistDetailSchema,
     onSubmit,
   });
 
+
+
   return (
-    <form className="content clearfix" onSubmit={handleSubmit(submitForm)}>
+    <form className="content clearfix" onSubmit={ handleSubmit} autoComplete="off">
       <Row className="gy-2">
         <Col md="6">
           <FormGroup>
@@ -28,13 +44,18 @@ const AgentRentDetails = () => {
               Property Type
             </label>
             <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select apartment type" value=""></option>
+              <select
+                className="form-control form-select"
+                name="propertyType"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                <option label="Select apartment type" selected="true" disabled="disabled" value=""></option>
                 {apartments?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
+                  <option label={apartment?.type} value={apartment?.id} key={apartment?.id} selected={apartment?.id === details?.propertyType }></option>
                 ))}
               </select>
-              {errors.firstName && <span className="invalid">This field is required</span>}
+              {errors.propertyType  && touched.propertyType && <span className="invalid">{errors.propertyType}</span>}
             </div>
           </FormGroup>
         </Col>
@@ -44,13 +65,18 @@ const AgentRentDetails = () => {
               Condition
             </label>
             <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select apartment condition" value=""></option>
+              <select
+                className="form-control form-select"
+                name="propertyCondition"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                <option label="Select apartment condition" selected="true" disabled="disabled" value=""></option>
                 {apartmentCondion?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
+                  <option label={apartment?.type} key={apartment?.id} value={apartment?.id} selected={apartment?.id === details?.propertyCondition }></option>
                 ))}
               </select>
-              {errors.lastName && <span className="invalid">This field is required</span>}
+              {errors.propertyCondition && touched.propertyCondition  && <span className="invalid">{errors?.propertyCondition}</span>}
             </div>
           </FormGroup>
         </Col>
@@ -60,18 +86,13 @@ const AgentRentDetails = () => {
               Furnishing
             </label>
             <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select an option" value=""></option>
+              <select className="form-control form-select" name="furnishing" onChange={handleChange} onBlur={handleBlur}>
+                <option label="Select an option" value="" selected="true" disabled="disabled"></option>
                 {furnishing?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
+                  <option label={apartment?.type} value={apartment?.id} key={apartment?.id} selected={apartment?.id === details?.furnishing}></option>
                 ))}
               </select>
-              {errors.email && errors.email.type === "required" && (
-                <span className="invalid">This field is required</span>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <span className="invalid">{errors.email.message}</span>
-              )}
+              {errors.furnishing && touched.furnishing && <span className="invalid">{errors?.furnishing}</span>}
             </div>
           </FormGroup>
         </Col>
@@ -81,13 +102,18 @@ const AgentRentDetails = () => {
               No of Toilet/Bathroom
             </label>
             <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select an option" value=""></option>
+              <select
+                className="form-control form-select"
+                name="propertyNoOfToilet"
+                onChange={handleChange}
+                onBlur={handleBlur}
+              >
+                <option label="Select an option" value="" selected="true" disabled="disabled"></option>
                 {toilets?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
+                  <option label={apartment?.type} value={apartment?.id} key={apartment?.id} selected={apartment?.id === details?.propertyNoOfToilet}></option>
                 ))}
               </select>
-              {errors.phone && <span className="invalid">This field is required</span>}
+              {errors.propertyNoOfToilet && touched.propertyNoOfToilet && <span className="invalid">{errors?.propertyNoOfToilet}</span>}
             </div>
           </FormGroup>
         </Col>
@@ -99,14 +125,14 @@ const AgentRentDetails = () => {
             <div className="form-control-wrap">
               <input
                 type="text"
-                id="city"
+                id="rentFee"
                 className="form-control"
-                ref={register({ required: true })}
-                name="city"
-                onChange={(e) => onInputChange(e)}
-                defaultValue={formData.city}
+                name="rentFee"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                defaultValue={details?.rentFee}
               />
-              {errors.city && <span className="invalid">This field is required</span>}
+              {errors.rentFee && touched.rentFee &&  <span className="invalid">{errors?.rentFee}</span>}
             </div>
           </FormGroup>
         </Col>
@@ -116,25 +142,27 @@ const AgentRentDetails = () => {
               Rent Fee Unit
             </label>
             <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select an option" value=""></option>
+              <select className="form-control form-select" name="rentFeeUnit" onChange={handleChange}
+                onBlur={handleBlur}>
+                <option label="Select an option" value="" selected="true" disabled="disabled"></option>
                 {rentFeeUnit?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
+                  <option label={apartment?.type} value={apartment?.id} selected={apartment?.id === details?.rentFeeUnit}></option>
                 ))}
               </select>
-              {errors.city && <span className="invalid">This field is required</span>}
+              {errors.rentFeeUnit && touched.rentFeeUnit && <span className="invalid">{errors?.rentFeeUnit}</span>}
             </div>
           </FormGroup>
         </Col>
 
         <Col md="12">
           <FormGroup>
-            <label className="form-label" htmlFor="city">
+            <label className="form-label" htmlFor="city"> 
               Description
             </label>
             <div className="form-control-wrap">
-              <textarea type="textarea" className="form-control form-control-sm" placeholder="Write your description" />
-              {errors.city && <span className="invalid">This field is required</span>}
+              <textarea type="textarea"  onChange={handleChange}
+                onBlur={handleBlur} defaultValue={details?.description} id="description" className="form-control form-control-sm" name="description" placeholder="Write your description" />
+           
             </div>
           </FormGroup>
         </Col>

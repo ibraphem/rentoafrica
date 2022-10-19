@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import Head from "../layout/head/Head";
 import Content from "../layout/content/Content";
 import {
@@ -6,8 +6,6 @@ import {
   BlockHead,
   BlockHeadContent,
   BlockTitle,
-  BlockDes,
-  BackTo,
   PreviewCard,
   Col,
   Row,
@@ -16,289 +14,30 @@ import { useForm } from "react-hook-form";
 import { Steps, Step } from "react-step-builder";
 import { FormGroup, Button } from "reactstrap";
 import Layout from "../layout/Index";
-import { apartmentCondion, apartments, furnishing, rentFeeUnit, toilets } from "../mock/apartments";
+import AgentRentDetails from "../layout/apartment/AgentRentDetails";
+import AgentRentLocation from "../layout/apartment/AgentRentLocation";
+import AgentRentUploads from "../layout/apartment/AgentRentUploads";
 
 
-const PersonalForm = (props) => {
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    city: "",
-  });
-
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const { errors, handleSubmit, register } = useForm();
-
-  const submitForm = (data) => {
-    props.next();
-    console.log(data);
-  };
-
-  
-
+const DetailsForm = (props) => {
   return (
-    <form className="content clearfix" onSubmit={handleSubmit(submitForm)}>
-      <Row className="gy-2">
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="first-name">
-              Property Type
-            </label>
-            <div className="form-control-wrap">
-              <select className="form-control form-select" name="propertyType">
-                <option label="Select apartment type" value=""></option>
-                {apartments?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
-                ))}
-              </select>
-              {errors.propertyType && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="last-name">
-              Condition
-            </label>
-            <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select apartment condition" value=""></option>
-                {apartmentCondion?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
-                ))}
-              </select>
-              {errors.propertyCondition && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="email">
-              Furnishing
-            </label>
-            <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select an option" value=""></option>
-                {furnishing?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
-                ))}
-              </select>
-              {errors.email && errors.email.type === "required" && (
-                <span className="invalid">This field is required</span>
-              )}
-              {errors.email && errors.email.type === "pattern" && (
-                <span className="invalid">{errors.email.message}</span>
-              )}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="phone-no">
-              No of Toilet/Bathroom
-            </label>
-            <div className="form-control-wrap">
-              <select className="form-control form-select">
-                <option label="Select an option" value=""></option>
-                {toilets?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
-                ))}
-              </select>
-              {errors.phone && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="city">
-              Rent Fee
-            </label>
-            <div className="form-control-wrap">
-              <input
-                type="text"
-                id="city"
-                className="form-control"
-                ref={register({ required: true })}
-                name="city"
-                onChange={(e) => onInputChange(e)}
-                defaultValue={formData.city}
-              />
-              {errors.city && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="city">
-              Rent Fee Unit
-            </label>
-            <div className="form-control-wrap">
-            <select className="form-control form-select">
-                <option label="Select an option" value=""></option>
-                {rentFeeUnit?.map((apartment) => (
-                  <option label={apartment?.type} value={apartment?.id}></option>
-                ))}
-              </select>
-              {errors.city && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-
-        <Col md="12">
-          <FormGroup>
-            <label className="form-label" htmlFor="city">
-              Description
-            </label>
-            <div className="form-control-wrap">
-              <textarea type="textarea" className="form-control form-control-sm" placeholder="Write your description" />
-              {errors.city && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-      </Row>
-      <div className="actions clearfix">
-        <ul>
-          <li>
-            <Button color="primary" type="submit">
-              Next
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </form>
-  );
+    <AgentRentDetails props={props}/>
+  )
 };
 
-const UserSettings = (props) => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-    rePassword: "",
-    terms: false,
-  });
-
-  const onInputChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const { errors, handleSubmit, register, watch } = useForm();
-
-  const submitForm = (data) => {
-    props.next();
-  };
-
-  const password = useRef();
-  password.current = watch("password");
-
+const LocationForm = (props) => {
   return (
-    <form className="content clearfix" onSubmit={handleSubmit(submitForm)}>
-      <Row className="gy-2">
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="username">
-              Property
-            </label>
-            <div className="form-control-wrap">
-              <input
-                type="text"
-                id="username"
-                ref={register({ required: true })}
-                className="form-control"
-                name="username"
-                onChange={(e) => onInputChange(e)}
-                defaultValue={formData.username}
-              />
-              {errors.username && <span className="invalid">This field is required</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="password">
-              Password
-            </label>
-            <div className="form-control-wrap">
-              <input
-                type="password"
-                id="password"
-                ref={register({
-                  required: "This field is required",
-                  minLength: {
-                    value: 6,
-                    message: "Password must have at least 6 characters",
-                  },
-                })}
-                className="form-control"
-                name="password"
-                onChange={(e) => onInputChange(e)}
-                defaultValue={formData.password}
-              />
-              {errors.password && <span className="invalid">{errors.password.message}</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="6">
-          <FormGroup>
-            <label className="form-label" htmlFor="rePassword">
-              Re-Password
-            </label>
-            <div className="form-control-wrap">
-              <input
-                type="password"
-                id="rePassword"
-                className="form-control"
-                ref={register({
-                  required: "This field is required",
-                  validate: (value) => value === password.current || "The passwords do not match",
-                })}
-                name="rePassword"
-                onChange={(e) => onInputChange(e)}
-                defaultValue={formData.rePassword}
-              />
-              {errors.rePassword && <span className="invalid">{errors.rePassword?.message}</span>}
-            </div>
-          </FormGroup>
-        </Col>
-        <Col md="12">
-          <div className="custom-control custom-checkbox">
-            <input
-              type="checkbox"
-              className="custom-control-input"
-              ref={register({ required: true })}
-              onChange={(e) => setFormData({ ...formData, terms: e.target.checked })}
-              checked={formData.terms}
-              name="terms"
-              id="fw-policy"
-            />
-            {errors.terms && <span className="invalid">This field is required</span>}
-            <label className="custom-control-label" htmlFor="fw-policy">
-              I agreed Terms and policy
-            </label>
-          </div>
-        </Col>
-      </Row>
-      <div className="actions clearfix">
-        <ul>
-          <li>
-            <Button color="primary" type="submit">
-              Next
-            </Button>
-          </li>
-          <li>
-            <Button color="primary" onClick={props.prev}>
-              Previous
-            </Button>
-          </li>
-        </ul>
-      </div>
-    </form>
-  );
+    <AgentRentLocation props={props}/>
+  )
 };
+
+const ImagesUploadForm = (props) => {
+  return (
+    <AgentRentUploads props={props}/>
+  )
+};
+
+
 
 const PaymentInfo = (props) => {
   const [formData, setFormData] = useState({
@@ -420,24 +159,24 @@ const Header = (props) => {
       <ul>
         <li className={props.current >= 1 ? "first done" : "first"}>
           <a href="#wizard-01-h-0" onClick={(ev) => ev.preventDefault()}>
-            <span className="number">01</span> <h5>Type</h5>
+            <span className="number">01</span> <h5>Details</h5>
           </a>
         </li>
         <li className={props.current >= 2 ? "done" : ""}>
           <a href="#wizard-01-h-1" onClick={(ev) => ev.preventDefault()}>
-            <span className="number">02</span> <h5>Details</h5>
+            <span className="number">02</span> <h5>Location</h5>
           </a>
         </li>
         <li className={props.current >= 3 ? "done" : ""}>
           <a href="#wizard-01-h-2" onClick={(ev) => ev.preventDefault()}>
             <span className="current-info audible">current step: </span>
-            <span className="number">03</span> <h5>Owner Info</h5>
+            <span className="number">03</span> <h5>Uploads</h5>
           </a>
         </li>
         <li className={props.current === 4 ? "last done" : "last"}>
           <a href="#wizard-01-h-2" onClick={(ev) => ev.preventDefault()}>
             <span className="current-info audible">current step: </span>
-            <span className="number">04</span> <h5>Uploads</h5>
+            <span className="number">04</span> <h5>Complete</h5>
           </a>
         </li>
       </ul>
@@ -476,9 +215,9 @@ const AddRentApartment = () => {
           <PreviewCard>
             <div className="nk-wizard nk-wizard-simple is-alter wizard clearfix">
               <Steps config={config}>
-                <Step component={PersonalForm} />
-                <Step component={UserSettings} />
-                <Step component={PaymentInfo} />
+                <Step component={DetailsForm} />
+                <Step component={LocationForm} />
+                <Step component={ImagesUploadForm} />
                 <Step component={Success} />
               </Steps>
             </div>

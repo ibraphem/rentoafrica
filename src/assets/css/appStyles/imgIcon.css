@@ -1,0 +1,52 @@
+.cntr56 {
+  /* position: relative;
+  width: 100%;
+  max-width: 400px; */
+
+  border-radius: 20px;
+    overflow: hidden;
+    width: 120px;
+    height: 120px;
+    position: relative;
+    display: block;
+    z-index: 10;
+
+}
+
+.imgntr {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlayntr4 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .3s ease;
+  background-color: red;
+}
+
+.cntr56:hover .overlayntr4 {
+  opacity: 1;
+}
+
+.iconntr7 {
+  color: white;
+  font-size: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.fantr:hover {
+  color: #eee;
+}

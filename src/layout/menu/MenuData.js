@@ -2,7 +2,7 @@ const menu = [
   {
     icon: "home",
     text: "Dashboard",
-    link: "/",
+    link: "/dashboard",
   },
   {
     icon: "plus",
