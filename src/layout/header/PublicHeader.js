@@ -1,12 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { Col, Container, Dropdown, Row } from "react-bootstrap";
 import { FaHome, FaHouseDamage, FaPhoneAlt, FaSignInAlt, FaUser } from "react-icons/fa";
 import "../../assets/css/publicStyles/header.css";
 import { useSelector } from "react-redux";
 import MobileHeader from "./MobileHeader";
+import { useDispatch } from "react-redux";
+import { removeUser } from "../../redux/slices/userSlice";
 const PublicHeader = () => {
+
   const favRent = useSelector((state) => state?.favoriteRent?.rent);
   const user = useSelector((state) => state.user?.user);
+  const history = useHistory()
+  const dispatch = useDispatch()
 
   return (
     <div
@@ -33,10 +38,10 @@ const PublicHeader = () => {
                     </Dropdown.Toggle>
 
                     <Dropdown.Menu>
-                      <Dropdown.Item  to="/dashboard">
+                      <Dropdown.Item onClick={() => history.push("/dashboard")}>
                         Dashboard
                       </Dropdown.Item>
-                      <Dropdown.Item  to="/dashboard">
+                      <Dropdown.Item  onClick={()=>dispatch(removeUser())}>
                         logout
                       </Dropdown.Item>
                     </Dropdown.Menu>

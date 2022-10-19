@@ -1,6 +1,11 @@
 const menu = [
   {
     icon: "home",
+    text: "Homepage",
+    link: "/",
+  },
+  {
+    icon: "building",
     text: "Dashboard",
     link: "/dashboard",
   },
