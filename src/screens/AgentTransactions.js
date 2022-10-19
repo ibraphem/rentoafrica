@@ -116,6 +116,9 @@ const AgentTransactions = () => {
                       <span className>Cash Flow</span>
                     </DataTableRow>
                     <DataTableRow>
+                      <span className>Type</span>
+                    </DataTableRow>
+                    <DataTableRow>
                       <span>Balance</span>
                     </DataTableRow>
                   </DataTableHead>
@@ -136,6 +139,11 @@ const AgentTransactions = () => {
                             ): (
                                 <FaArrowAltCircleDown color="red" style={{marginLeft: 10}}/>
                             )}
+                            </DataTableRow>
+                            <DataTableRow>
+                              <div className="user-info">
+                                <span>{item.type} </span>
+                              </div>
                             </DataTableRow>
                             <DataTableRow>
                               <span>&#8358;{amountFormat(item?.balance)}</span>
