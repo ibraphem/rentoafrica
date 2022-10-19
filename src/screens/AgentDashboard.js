@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Content from "../layout/content/Content";
 import Head from "../layout/head/Head";
 import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem, Badge } from "reactstrap";
@@ -22,12 +21,11 @@ import {
 import { apartmentData } from "../mock/apartments";
 import Layout from "../layout/Index";
 import { amountFormat } from "../utils/format";
+import { Link } from "react-router-dom";
 
 const AgentDashboard = () => {
-    const [onSearch, setonSearch] = useState(true);
-   
-  
-    const toggle = () => setonSearch(!onSearch);
+
+
   return (
     <Layout>
       <Head title="DASHBOARD"></Head>
@@ -36,7 +34,7 @@ const AgentDashboard = () => {
           <BlockBetween>
             <BlockHeadContent>
               <BlockTitle tag="h3" page>
-                Dashboard
+                Listed Apartment
               </BlockTitle>
               <BlockDes className="text-soft">
                 <p>You have listed a total of 33 Apartments so far.</p>
@@ -86,7 +84,9 @@ const AgentDashboard = () => {
                       <div className="btn-wrap">
                         <Button color="primary">
                           <Icon name="plus"></Icon>
-                          <span>Add New</span>
+                          <Link to="new-apartment" style={{ color: "#fff" }}>
+                            <span>Add New</span>
+                          </Link>
                         </Button>
                       </div>
                     </div>
@@ -94,45 +94,21 @@ const AgentDashboard = () => {
                   <div className="card-tools mr-n1">
                     <ul className="btn-toolbar gx-1">
                       <li>
-                        <a
-                          href="#search"
-                          onClick={(ev) => {
-                            ev.preventDefault();
-                            toggle();
-                          }}
-                          className="btn btn-icon search-toggle toggle-search"
-                        >
-                          <Icon name="search"></Icon>
-                        </a>
+                        <div className="form-control-wrap">
+                          <div className="input-group">
+                            <input type="text" className="form-control" placeholder="search..." />
+                            <div className="input-group-append">
+                              <Button color="primary" className="btn-dim">
+                              <Icon name="search"></Icon>
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
                       </li>
                     </ul>
                   </div>
                 </div>
-                <div className={`card-search search-wrap ${!onSearch && "active"}`}>
-                  <div className="card-body">
-                    {/* <div className="search-content">
-                      <Button
-                        className="search-back btn-icon toggle-search active"
-                        onClick={() => {
-                          setSearchText("");
-                          toggle();
-                        }}
-                      >
-                        <Icon name="arrow-left"></Icon>
-                      </Button>
-                      <input
-                        type="text"
-                        className="border-transparent form-focus-none form-control"
-                        placeholder="Search by address or rent fee"
-                        value={onSearchText}
-                        onChange={(e) => onFilterChange(e)}
-                      />
-                      <Button className="search-submit btn-icon">
-                        <Icon name="search"></Icon>
-                      </Button>
-                    </div> */}
-                  </div>
-                </div>
+               
               </div>
               <DataTableBody compact>
                 <DataTableHead>
@@ -145,7 +121,7 @@ const AgentDashboard = () => {
                   <DataTableRow size="md">
                     <span className>Address</span>
                   </DataTableRow>
-                  <DataTableRow >
+                  <DataTableRow>
                     <span>Rent Fee</span>
                   </DataTableRow>
                   <DataTableRow size="lg">
@@ -154,7 +130,7 @@ const AgentDashboard = () => {
                   <DataTableRow>
                     <span className="sub-text">Payment</span>
                   </DataTableRow>
-               
+
                   <DataTableRow>
                     <span className="sub-text">&nbsp;</span>
                   </DataTableRow>
@@ -169,13 +145,13 @@ const AgentDashboard = () => {
                               <span className="tb-lead">{item.date} </span>
                             </div>
                           </DataTableRow>
-                          <DataTableRow >
+                          <DataTableRow>
                             <span>{item?.type}</span>
                           </DataTableRow>
                           <DataTableRow size="md">
                             <span>{item?.address}</span>
                           </DataTableRow>
-                          <DataTableRow >
+                          <DataTableRow>
                             <span>&#8358;{amountFormat(item?.fee)}</span>
                           </DataTableRow>
                           <DataTableRow>
@@ -203,7 +179,7 @@ const AgentDashboard = () => {
                                 : "Not Due"}
                             </span>
                           </DataTableRow>
-                  
+
                           <DataTableRow className="nk-tb-col-action">
                             <UncontrolledDropdown>
                               <DropdownToggle

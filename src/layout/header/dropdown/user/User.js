@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../../../../redux/slices/userSlice";
 import { useHistory } from "react-router";
+import { FaUser } from "react-icons/fa";
 
 const User = () => { 
   const [open, setOpen] = useState(false);
@@ -45,7 +46,7 @@ const User = () => {
         <div className="dropdown-inner user-card-wrap bg-lighter d-none d-md-block">
           <div className="user-card sm">
             <div className="user-avatar">
-              <span>AB</span>
+              <span><FaUser/></span>
             </div>
             <div className="user-info">
               <span className="lead-text">{user?.profileName}</span>
@@ -55,8 +56,13 @@ const User = () => {
         </div>
         <div className="dropdown-inner">
           <LinkList>
-            <LinkItem link="/user-profile-regular" icon="user-alt" onClick={toggle}>
+            <LinkItem link="/" icon="user-alt" onClick={toggle}>
               View Profile
+            </LinkItem>
+          </LinkList>
+          <LinkList>
+            <LinkItem link="/" icon="setting-alt" onClick={toggle}>
+              Reset Password
             </LinkItem>
           </LinkList>
         </div>

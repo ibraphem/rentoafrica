@@ -30,7 +30,7 @@ const Login = () => {
    
     if(res) {
       if(res?.status) {
-        console.log(res?.result);
+        // console.log(res?.result);
         dispatch(saveUser(res?.result))
       }else{
         dispatch(setAlertModal({status: true, type: "failed", message: res?.message}))

@@ -6,8 +6,13 @@ const menu = [
   },
   {
     icon: "building",
-    text: "Dashboard",
+    text: "Listings",
     link: "/dashboard",
+  },
+  {
+    icon: "briefcase",
+    text: "Transactions",
+    link: "/transactions",
   },
   {
     icon: "plus",
