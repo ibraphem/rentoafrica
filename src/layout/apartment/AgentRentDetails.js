@@ -9,7 +9,7 @@ import { useSelector } from "react-redux";
 
 const AgentRentDetails = ({props}) => {
   const dispatch = useDispatch()
-  const onSubmit = async (values, { resetForm }) => {
+  const onSubmit = async (values) => {
     console.log(values);
     dispatch(updateDetails(values))
     props.next()
@@ -19,7 +19,7 @@ const AgentRentDetails = ({props}) => {
 
   console.log(details);
 
-  const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
+  const { errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
       propertyType: details?.propertyType,
       propertyCondition: details?.propertyCondition,

@@ -62,7 +62,7 @@ const User = () => {
         </div>
         <div className="dropdown-inner">
           <LinkList>
-            <a onClick={handleSignout}>
+            <a href="/" onClick={handleSignout}>
               <Icon name="signout"></Icon>
               <span>Sign Out</span>
             </a>

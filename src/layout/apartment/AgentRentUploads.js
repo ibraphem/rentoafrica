@@ -1,7 +1,5 @@
 import { useState } from "react";
 import Dropzone from "react-dropzone";
-import { FaRegTimesCircle } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { Col, Row, Button } from "reactstrap";
 import { fileToBase64 } from "../../utils/format";
 
@@ -31,13 +29,13 @@ const AgentRentUploads = ({props}) => {
    
   }
 
-  const remove = (file) => {
-    console.log(file);
-    let images = [...otherImages];
-    const res = images?.filter((image) => image != file);
-    console.log(res);
-    setOtherImages(res);
-  };
+  // const remove = (file) => {
+  //   console.log(file);
+  //   let images = [...otherImages];
+  //   const res = images?.filter((image) => image != file);
+  //   console.log(res);
+  //   setOtherImages(res);
+  // };
 
   //   console.log(otherImages);
   return (
