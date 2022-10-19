@@ -7,12 +7,8 @@ import {
   BlockHeadContent,
   BlockTitle,
   PreviewCard,
-  Col,
-  Row,
 } from "../components/Component";
-import { useForm } from "react-hook-form";
 import { Steps, Step } from "react-step-builder";
-import { FormGroup, Button } from "reactstrap";
 import Layout from "../layout/Index";
 import AgentRentDetails from "../layout/apartment/AgentRentDetails";
 import AgentRentLocation from "../layout/apartment/AgentRentLocation";
