@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Head from "../layout/head/Head";
 import Content from "../layout/content/Content";
 import {
