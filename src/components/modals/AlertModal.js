@@ -23,7 +23,7 @@ const AlertModal = () => {
     return (
       alert?.status && (
         <div className="alert-modal alertPOP">
-          <div className="alert-modal-overlay" onClick={()=> closeModal()}></div>
+          <div className="alert-modal-overlay"></div>
           <div className="alert-modal-card vivify popInBottom">
             <div className="close-alert-button"></div>
     
