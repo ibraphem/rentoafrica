@@ -2,14 +2,14 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaPhone, FaRegEnvelope, FaLock, FaUser } from "react-icons/fa";
-import "../assets/css/publicStyles/auth.css";
+import "../../assets/css/publicStyles/auth.css";
 import { useFormik } from "formik";
-import { signupSchema } from "../utils/formValidationSchema";
-import { setAlertModal, setLoader } from "../redux/slices/modalSlice";
-import { onboardAgent } from "../services/onboardingService";
+import { signupSchema } from "../../utils/formValidationSchema";
+import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
+import { onboardAgent } from "../../services/onboardingService";
 import { useDispatch } from "react-redux";
-import { aesEncryption } from "../utils/encrypt";
-import PublicHeader from "../layout/header/PublicHeader";
+import { aesEncryption } from "../../utils/encrypt";
+import PublicHeader from "../../layout/header/PublicHeader";
 
 const AgentRegister = () => {
 

@@ -1,5 +1,5 @@
-import Content from "../layout/content/Content";
-import Head from "../layout/head/Head";
+import Content from "../../layout/content/Content";
+import Head from "../../layout/head/Head";
 import {
   Block,
   BlockBetween,
@@ -15,11 +15,11 @@ import {
   DataTableRow,
   DataTableItem,
   Button,
-} from "../components/Component";
-import Layout from "../layout/Index";
-import { amountFormat } from "../utils/format";
+} from "../../components/Component";
+import Layout from "../../layout/Index";
+import { amountFormat } from "../../utils/format";
 import { Link } from "react-router-dom";
-import { transactionData } from "../mock/transaction";
+import { transactionData } from "../../mock/transaction";
 import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 
 const AgentTransactions = () => {

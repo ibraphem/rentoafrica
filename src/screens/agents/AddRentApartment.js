@@ -1,17 +1,17 @@
-import Head from "../layout/head/Head";
-import Content from "../layout/content/Content";
+import Head from "../..//layout/head/Head";
+import Content from "../../layout/content/Content";
 import {
   Block,
   BlockHead,
   BlockHeadContent,
   BlockTitle,
   PreviewCard,
-} from "../components/Component";
+} from "../../components/Component";
 import { Steps, Step } from "react-step-builder";
-import Layout from "../layout/Index";
-import AgentRentDetails from "../layout/apartment/AgentRentDetails";
-import AgentRentLocation from "../layout/apartment/AgentRentLocation";
-import AgentRentUploads from "../layout/apartment/AgentRentUploads";
+import Layout from "../../layout/Index";
+import AgentRentDetails from "../../layout/apartment/AgentRentDetails";
+import AgentRentLocation from "../../layout/apartment/AgentRentLocation";
+import AgentRentUploads from "../../layout/apartment/AgentRentUploads";
 
 
 const DetailsForm = (props) => {
@@ -53,26 +53,11 @@ const Header = (props) => {
             <span className="number">03</span> <h5>Uploads</h5>
           </a>
         </li>
-        <li className={props.current === 4 ? "last done" : "last"}>
-          <a href="#wizard-01-h-2" onClick={(ev) => ev.preventDefault()}>
-            <span className="current-info audible">current step: </span>
-            <span className="number">04</span> <h5>Complete</h5>
-          </a>
-        </li>
       </ul>
     </div>
   );
 };
 
-const Success = (props) => {
-  return (
-    <div className="d-flex justify-content-center align-items-center p-3">
-      <BlockTitle tag="h6" className="text-center">
-        Thank you for submitting form
-      </BlockTitle>
-    </div>
-  );
-};
 
 const config = {
   before: Header,
@@ -98,7 +83,7 @@ const AddRentApartment = () => {
                 <Step component={DetailsForm} />
                 <Step component={LocationForm} />
                 <Step component={ImagesUploadForm} />
-                <Step component={Success} />
+            
               </Steps>
             </div>
           </PreviewCard>

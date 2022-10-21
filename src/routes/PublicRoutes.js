@@ -1,6 +1,6 @@
 import { Route, Switch, Redirect } from "react-router";
 import "../assets/css/publicStyles/app.css";
-import AgentRegister from "../screens/AgentRegister";
+import AgentRegister from "../screens/agents/AgentRegister";
 import CorporateRegister from "../screens/CorporateRegister";
 import FavouriteApartment from "../screens/FavouriteApartment";
 import Home from "../screens/Home";

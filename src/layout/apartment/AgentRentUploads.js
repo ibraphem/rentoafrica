@@ -58,7 +58,10 @@ const AgentRentUploads = ({props}) => {
                 
                     <div className="dz-preview dz-processing dz-image-preview dz-error dz-complete">
                       <div className="dz-image">
-                        <img src={profileImg} alt="preview" />
+                        {profileImg !== "" && (
+                            <img src={profileImg} alt="preview" />
+                        )}
+                      
                       </div>
                     </div>
               
@@ -98,7 +101,7 @@ const AgentRentUploads = ({props}) => {
         <ul>
           <li>
             <Button color="primary" type="submit" onClick={submitListing}>
-              Next
+              Submit
             </Button>
           </li>
           <li>

@@ -5,9 +5,14 @@ const menu = [
     link: "/",
   },
   {
+    icon: "brick-fill",
+    text: "Dashboad",
+    link: "/dashboard",
+  },
+  {
     icon: "building",
     text: "Listings",
-    link: "/dashboard",
+    link: "/apartment-listing",
   },
   {
     icon: "briefcase",
