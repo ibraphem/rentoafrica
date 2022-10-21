@@ -19,14 +19,11 @@ const [houses, setHouses] = useState([])
   let params = useParams();
   let status = params?.status
 
-  const apt = () => {
-    const res = apartmentData?.filter((apartment) => apartment?.status.toLowerCase() === status.toLowerCase())
-    setHouses(res)
 
-  }
 
   useEffect(() => {
-    apt()
+    const res = apartmentData?.filter((apartment) => apartment?.status.toLowerCase() === status.toLowerCase())
+    setHouses(res)
   }, [status])
   
 
