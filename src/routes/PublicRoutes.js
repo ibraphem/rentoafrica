@@ -28,7 +28,7 @@ const PublicRoutes = () => {
         <Route exact path="/details/:id" component={RentDetail} />
         <Route exact path="/register/agent" component={AgentRegister} />
         <Route exact path="/register/corporate" component={CorporateRegister} />
-        <Route exact path="/confirm/:code" component={EmailVerification} />
+        <Route exact path="/confirmemail/:code" component={EmailVerification} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
       </div>
     </Switch>
