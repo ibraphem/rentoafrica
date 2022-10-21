@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import AgentTransactions from "../screens/agents/AgentTransactions";
 import ApartmentListing from "../screens/agents/ApartmentListing";
 import GatewayRoute from "./GatewayRoute";
+import AdminDashboard from "../screens/admin/AdminDashboard";
+import Apartments from "../screens/admin/Apartments";
 
 const ProtectedRoutes = () => {
   const user = useSelector((state) => state.user?.user)
@@ -17,12 +19,13 @@ const ProtectedRoutes = () => {
         exact
         path="/dashboard"
         render={() => {
-          return user?.token ? <AgentDashboard/> : <Redirect to="/login" />;
+          return user?.token && user?.role === "Agent" ? <AgentDashboard/> : user?.token && user?.role === "Admin" ? <AdminDashboard/> : <Redirect to="/login" />;
         }}
       />
       <GatewayRoute exact path="/new-apartment" component={AddRentApartment} />
       <GatewayRoute exact path="/transactions" component={AgentTransactions} />
       <GatewayRoute exact path="/apartment-listing" component={ApartmentListing} />
+      <GatewayRoute exact path="/apartment/:status" component={Apartments} />
     </Switch>
   );
 };

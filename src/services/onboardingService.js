@@ -20,3 +20,7 @@ export const onboardTenant = async (payload) => {
   export const verifyEmail = async (token) => {
     return await httpRequest(controllers.authController + `/ConfirmEmailToken/${token}`);
   };
+
+  export const forgotPassword = async (email) => {
+    return await httpRequest(controllers.authController + `/ForgotPassword?email=${email}`);
+  };

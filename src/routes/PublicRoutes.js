@@ -8,6 +8,7 @@ import Login from "../screens/Login";
 import RentDetail from "../screens/RentDetail";
 import EmailVerification from "../screens/EmailVerification";
 import { useSelector } from "react-redux";
+import ForgotPassword from "../screens/ForgotPassword";
 
 const PublicRoutes = () => {
     const token = useSelector((state) => state.user?.user?.token)
@@ -28,6 +29,7 @@ const PublicRoutes = () => {
         <Route exact path="/register/agent" component={AgentRegister} />
         <Route exact path="/register/corporate" component={CorporateRegister} />
         <Route exact path="/confirm/:code" component={EmailVerification} />
+        <Route exact path="/forgot/password" component={ForgotPassword} />
       </div>
     </Switch>
   );

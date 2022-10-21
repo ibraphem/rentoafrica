@@ -3,8 +3,10 @@ import menu from "./MenuData";
 import Icon from "../../components/icon/Icon";
 import classNames from "classnames";
 import { NavLink, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const MenuHeading = ({ heading }) => {
+ 
   return (
     <li className="nk-menu-heading">
       <h6 className="overline-title text-primary-alt">{heading}</h6>
@@ -200,9 +202,11 @@ const MenuSub = ({ icon, link, text, sub, sidebarToggle, mobileView, ...props })
 };
 
 const Menu = ({ sidebarToggle, mobileView }) => {
+  const role = useSelector((state) => state.user?.user?.role)
+
   return (
     <ul className="nk-menu">
-      {menu.map((item) =>
+      {menu[role].map((item) =>
         item.heading ? (
           <MenuHeading heading={item.heading} key={item.heading} />
         ) : (

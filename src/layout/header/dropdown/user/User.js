@@ -17,7 +17,6 @@ const User = () => {
   const dispatch = useDispatch()
   const history = useHistory()
 
-  console.log(user);
 
   const handleSignout = () => {
     dispatch(removeUser())

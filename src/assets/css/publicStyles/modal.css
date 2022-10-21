@@ -246,7 +246,7 @@
   }
   
   .alert-modal-card {
-    margin-top: 200px;
+    /* margin-top: 200px; */
     position: relative;
     background: rgb(255, 255, 255);
     width: 390px;

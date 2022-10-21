@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import { FaKey, FaLock, FaUser } from "react-icons/fa";
+import { FaKey, FaLock, FaRegEnvelope } from "react-icons/fa";
 import "../assets/css/publicStyles/auth.css";
 import { useFormik } from "formik";
 import { signinSchema } from "../utils/formValidationSchema";
@@ -30,7 +30,7 @@ const Login = () => {
    
     if(res) {
       if(res?.status) {
-        // console.log(res?.result);
+     
         dispatch(saveUser(res?.result))
       }else{
         dispatch(setAlertModal({status: true, type: "failed", message: res?.message}))
@@ -87,7 +87,7 @@ const Login = () => {
                       errors.email && touched.email ? "input-error" : ""
                     }
                   />
-                    <FaUser />
+                    <FaRegEnvelope />
                   </div>
                   {errors.password && touched.password && (
                     <strong className="text-danger">{errors.password}</strong>
@@ -108,7 +108,7 @@ const Login = () => {
                 </div>
                   <div className="remember-row">
                     <p className="lost-pass">
-                      <Link to="/" >
+                      <Link to="/forgot/password" >
                         Forgot Password
                       </Link>
                     </p>
