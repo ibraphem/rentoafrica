@@ -11,7 +11,7 @@ import {
 
 import { useParams } from "react-router";
 import { useDispatch } from "react-redux";
-import { getCorporates, updateSearchTerm, updateStatus } from "../../redux/slices/corporateSlice";
+import { getCorporates, updateSearchTerm, updatePagination, updateStatus } from "../../redux/slices/corporateSlice";
 import { useSelector } from "react-redux";
 import CorporateTable from "../../shared/CorporateTable";
 import { sentenceCaseFormat } from "../../utils/format";

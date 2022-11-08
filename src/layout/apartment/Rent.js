@@ -20,7 +20,7 @@ import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
 import { aesEncryption } from "../../utils/encrypt";
 
 
-const Rent = ({rentDataDetail}) => {
+const Rent = ({rentDataDetail, propertyId}) => {
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [initialPayment, setInitialPayment] = useState("");
@@ -96,7 +96,7 @@ const Rent = ({rentDataDetail}) => {
       phoneNo,
       profileName,
       initialPayment: Number(initialPayment),
-      propertyId,  
+      rentDataDetail,  
     }
 
     const body2 = {

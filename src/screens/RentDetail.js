@@ -13,8 +13,6 @@ const [data, setData] = useState({})
   let params = useParams();
   let propertyId = params?.id
 
-//   console.log(propertyId);
-
     const fetchPropertyDetail = async() => {
         const res = (await propertyDetail(propertyId))?.data
         setData(res?.result)
@@ -23,14 +21,13 @@ const [data, setData] = useState({})
     useEffect(() => {
         fetchPropertyDetail()
       }, [propertyId])
-  
-      console.log(data);
+
       
     return (
         <>
             <PublicHeader/>
             <PageTitle pagesub="Details" pageTitle={data?.propertyName}/>
-            <Rent rentDataDetail={data}/>
+            <Rent rentDataDetail={data} propertyId={propertyId}/>
             <Properties rentData={rentData} title="Related Properties" />
         </>
     );
