@@ -15,7 +15,6 @@ import CustomToolTip from "../../layout/misc/CustomToolTip";
 import Alerts from "../../layout/misc/Alerts";
 import { validatePhoneNumber } from "../../utils/validate";
 import { onboardTenant } from "../../services/onboardingService";
-import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
 import { aesEncryption } from "../../utils/encrypt";
