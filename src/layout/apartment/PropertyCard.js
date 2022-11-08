@@ -1,4 +1,4 @@
-import { FaBed, FaHome, FaToilet } from "react-icons/fa";
+import { FaBed, FaToilet } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { addToFavoriteRent, removeFromFavoriteRent } from "../../redux/slices/favouriteRentSlice";

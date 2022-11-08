@@ -10,7 +10,7 @@ import {
   Button,
   PaginationComponent,
 } from "../components/Component";
-import { amountFormat, simpleDateString } from "../utils/format";
+import {  simpleDateString } from "../utils/format";
 import TableLoader from "../components/loaders/TableLoader";
 import { setConfirmPopUp, setFormModal } from "../redux/slices/modalSlice";
 import { useDispatch } from "react-redux";

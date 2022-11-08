@@ -3,7 +3,6 @@ import { Container, Row, Col, Button } from "react-bootstrap";
 import {
   FaToilet,
   FaHome,
-  FaBed,
   FaBars,
 } from "react-icons/fa";
 import Slider from "react-slick";
@@ -47,7 +46,7 @@ const Rent = ({rentDataDetail, propertyId}) => {
     if(step === 2 && initialPayment >= rentDataDetail?.propertyAmount) {
       setStep(1)
     }
-  }, [step, initialPayment])
+  }, [step, initialPayment, rentDataDetail?.propertyAmount])
 
   const errorRef = useRef(null)
   const scrollToError = () => {

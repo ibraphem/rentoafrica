@@ -23,8 +23,6 @@ const CorporateList = () => {
 
     const data = useSelector((state) => state.corporates)
 
-    console.log(data);
-
     const params = data?.params
     const result = data?.corporates?.data?.result
   
@@ -32,12 +30,12 @@ const CorporateList = () => {
 
     useEffect(() => {
         dispatch(updateStatus(status))
-      }, [urlStatus, status])
+      }, [urlStatus, status, dispatch])
       
     
       useEffect(() => {
         dispatch(getCorporates())
-       }, [params])
+       }, [params, dispatch])
       
        const paginate = (pageNumber) => dispatch(updatePagination(pageNumber));
     

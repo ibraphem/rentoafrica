@@ -26,7 +26,7 @@ const ApartmentListing = () => {
 
   useEffect(() => {
    dispatch(getAgentProperties())
-  }, [params])
+  }, [params, dispatch])
 
   const search = (searchTerm) => {
     if(searchTerm === ""){

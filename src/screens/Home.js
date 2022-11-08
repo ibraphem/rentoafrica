@@ -17,7 +17,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getProperties())
-       }, [params])
+       }, [params, dispatch])
 
        const loadMore = () => {
         dispatch(updatePagination(data?.params?.pageNumber + 1))

@@ -1,5 +1,5 @@
 import React from 'react';
-import { BlockBetween, BlockHead,BlockHeadContent, BlockTitle, Block } from '../components/Component';
+import {Block } from '../components/Component';
 import Properties from '../layout/apartment/Properties';
 import Content from '../layout/content/Content';
 import Head from '../layout/head/Head';

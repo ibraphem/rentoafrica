@@ -13,13 +13,15 @@ const [data, setData] = useState({})
   let params = useParams();
   let propertyId = params?.id
 
-    const fetchPropertyDetail = async() => {
+
+
+    useEffect(() => {
+      const fetchPropertyDetail = async() => {
         const res = (await propertyDetail(propertyId))?.data
         setData(res?.result)
       }
 
-    useEffect(() => {
-        fetchPropertyDetail()
+      fetchPropertyDetail()
       }, [propertyId])
 
       

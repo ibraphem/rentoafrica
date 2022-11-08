@@ -21,7 +21,6 @@ export const modalSlice = createSlice({
       desc: "",
       payload: null,
       buttonText: "",
-      payload: null,
       showActionBtn: true
     },
 

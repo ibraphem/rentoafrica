@@ -31,12 +31,12 @@ const Apartments = () => {
 
   useEffect(() => {
     dispatch(updateStatus(status))
-  }, [urlStatus, status])
+  }, [urlStatus, status, dispatch])
   
 
   useEffect(() => {
     dispatch(getAdminProperties())
-   }, [params])
+   }, [params, dispatch])
   
    const paginate = (pageNumber) => dispatch(updatePagination(pageNumber));
 

@@ -1,9 +1,6 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
-import { useDispatch } from "react-redux";
 import CardLoader from "../../components/loaders/CardLoader";
-
-
 import PropertyCard from "./PropertyCard";
 
 const Properties = ({ rentData, title, isfavScreen, loadMore }) => {
