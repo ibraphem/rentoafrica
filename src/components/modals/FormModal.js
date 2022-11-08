@@ -6,7 +6,6 @@ import {
     ModalHeader,
     ModalBody,
     ModalFooter,
-    FormGroup,
   } from "reactstrap";
 import { useDispatch } from "react-redux";
 import ReasonForm from "../../layout/modalForms/ReasonForm";

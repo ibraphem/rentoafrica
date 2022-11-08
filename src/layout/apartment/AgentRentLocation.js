@@ -10,7 +10,6 @@ import { useSelector } from 'react-redux';
 
 
 const AgentRentLocation = ({props}) => {
-    const [allLGAs, setAllLGAs] = useState([])
     const dispatch = useDispatch()
     const location = useSelector((state) => state.apartmentListing?.location)
     const locations = useSelector((state) => state.apartmentListing?.locations)
@@ -41,7 +40,7 @@ const AgentRentLocation = ({props}) => {
           const lga = lgas.filter((lga) => lga?.state_id === values?.stateId)
           dispatch(updateLocations(lga))
         }
-      }, [values?.stateId])
+      }, [values?.stateId, dispatch])
 
       // console.log(values);
     

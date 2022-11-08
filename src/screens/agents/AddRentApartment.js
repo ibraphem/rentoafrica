@@ -5,7 +5,7 @@ import { Steps, Step } from "react-step-builder";
 import AgentRentDetails from "../../layout/apartment/AgentRentDetails";
 import AgentRentLocation from "../../layout/apartment/AgentRentLocation";
 import AgentRentUploads from "../../layout/apartment/AgentRentUploads";
-import { Button } from "reactstrap";
+
 
 const DetailsForm = (props) => {
   return <AgentRentDetails props={props} />;
