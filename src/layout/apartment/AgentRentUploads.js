@@ -117,7 +117,7 @@ const AgentRentUploads = ({ props }) => {
                           >
                             {" "}
                           </label>
-                          {defaultPhoto !== "" && <img src={defaultPhoto} alt="Default Photo" />}
+                          {defaultPhoto !== "" && <img src={defaultPhoto}/>}
                         </div>
                       </div>
                     </Col>
