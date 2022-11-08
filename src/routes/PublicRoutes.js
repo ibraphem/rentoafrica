@@ -9,7 +9,7 @@ import RentDetail from "../screens/RentDetail";
 import EmailVerification from "../screens/EmailVerification";
 import { useSelector } from "react-redux";
 import ForgotPassword from "../screens/ForgotPassword";
-import Error from "../layout/error/Error";
+
 
 const PublicRoutes = () => {
     const token = useSelector((state) => state.user?.user?.token)

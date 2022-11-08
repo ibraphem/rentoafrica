@@ -1,4 +1,4 @@
-import { Route, Switch, Redirect } from "react-router";
+import { Switch } from "react-router";
 import AgentDashboard from "../screens/agents/AgentDashboard";
 import "../assets/scss/dashlite.scss";
 import "../assets/scss/style-email.scss";
