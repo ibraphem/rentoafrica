@@ -9,7 +9,9 @@ import {  propertyTypes } from "../../mock/apartments";
 const FindHome = () => {
   const [selectedState, setSelectedState] = useState([])
   const [allLGAs, setAllLGAs] = useState([])
+  const [selectedLGAs, setSelectedLGAs] = useState([])
 
+  console.log(selectedLGAs);
 
   useEffect(() => {
     if(selectedState.length > 0) {

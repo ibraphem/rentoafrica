@@ -6,6 +6,7 @@ import { Col, Row, Button } from "reactstrap";
 import { updateDetails, updateLocation } from "../../redux/slices/apartmentListingSlice";
 import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
 import { createProperty } from "../../services/propertyService";
+import {  formatImage } from "../../utils/format";
 
 const AgentRentUploads = ({ props }) => {
   const [otherImages, setOtherImages] = useState([]);
