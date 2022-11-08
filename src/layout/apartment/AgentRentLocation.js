@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useEffect} from 'react';
 import { lgas } from '../../mock/lgas';
 import { states } from '../../mock/state';
 import { useFormik } from "formik";
@@ -14,10 +14,7 @@ const AgentRentLocation = ({props}) => {
     const location = useSelector((state) => state.apartmentListing?.location)
     const locations = useSelector((state) => state.apartmentListing?.locations)
 
-    console.log(location);
-
       const onSubmit = async (values) => {
-        console.log(values);
         dispatch(updateLocation(values))
         props.next()
       };
