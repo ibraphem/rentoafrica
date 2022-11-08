@@ -176,7 +176,7 @@ const AgentRentLocation = ({props}) => {
               </Button>
             </li>
             <li>
-            <Button color="primary" onClick={props.prev}>
+            <Button color="primary" onClick={()=> {props.prev(); dispatch(updateLocation(values))}}>
               Previous
             </Button>
           </li>

@@ -4,6 +4,7 @@ import {
   FaToilet,
   FaHome,
   FaBars,
+  FaBed,
 } from "react-icons/fa";
 import Slider from "react-slick";
 import { amountFormat } from "../../utils/format";
@@ -138,9 +139,9 @@ const Rent = ({rentDataDetail, propertyId}) => {
             <Col lg={6}>
               <Slider {...settings}>
                 {rentDataDetail?.propertyPhotos?.map((image) => (
-                  <div className="car-booking-image" key={rentDataDetail?.id}>
+                  <div className="car-booking-image" key={image?.id}>
                     <img
-                      src={image?.photoUrl}
+                      src={image?.photo}
                       alt="car"
                       style={{ height: "400px", objectFit: "cover" }}
                     />
@@ -151,7 +152,7 @@ const Rent = ({rentDataDetail, propertyId}) => {
             <Col md={6}>
               <div className="car-booking-right">
                 <p className="rental-tag">{rentDataDetail?.propertyName}</p>
-                <h3>Ikeja, Lagos</h3>
+                <h3>{rentDataDetail?.location}, {rentDataDetail?.state}</h3>
                 <div className="price-rating">
                   <div className="price-rent">
                     <h4>
@@ -169,11 +170,12 @@ const Rent = ({rentDataDetail, propertyId}) => {
                     <li>
                       <FaHome /> {rentDataDetail?.propertyConditionDescription}
                     </li>
-                    {/* <li>
-                      <FaUtensilSpoon /> {rentDataDetail?.kitchen} Kitchen(s)
-                    </li> */}
+                  
                   </ul>
                   <ul>
+                  <li>
+                      <FaBed /> {rentDataDetail?.propertyTypeDescription}
+                    </li>
                     <li>
                       <FaBars /> {rentDataDetail?.furnishedStatusDescription}
                     </li>

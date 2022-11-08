@@ -16,3 +16,7 @@ export const declineProperty = async (payload) => {
 export const propertyDetail = async (id) => {
   return await httpRequest(controllers.listingController + "/PropertyDetails/" + id);
 };
+
+export const propertyDetail2 = async (id) => {
+  return await httpRequest(controllers.propertyController + "/Details/" + id);
+};

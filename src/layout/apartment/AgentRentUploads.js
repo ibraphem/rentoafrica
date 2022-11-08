@@ -1,44 +1,42 @@
-import { useState } from "react";
 import Dropzone from "react-dropzone";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { Col, Row, Button } from "reactstrap";
-import { updateDetails, updateLocation } from "../../redux/slices/apartmentListingSlice";
+import { removePropertyPhoto, updateDefaultPhoto, updateDetails, updateLocation, updatePropertyPhotos } from "../../redux/slices/apartmentListingSlice";
 import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
 import { createProperty } from "../../services/propertyService";
 import {  formatImage } from "../../utils/format";
 
 const AgentRentUploads = ({ props }) => {
-  const [otherImages, setOtherImages] = useState([]);
-  const [profileImg, setProfileImg] = useState("");
   const dispatch = useDispatch();
-
   const details = useSelector((state) => state.apartmentListing?.details)
   const location = useSelector((state) => state.apartmentListing?.location)
+  const defaultPhoto = useSelector((state) => state.apartmentListing?.defaultPhoto);
+  const propertyPhotos = useSelector((state) => state.apartmentListing?.propertyPhotos);
 
+
+  const handleProfileImg = (acceptedFiles) => {
+    formatImage(acceptedFiles[0], async (uri) => {
+      dispatch(updateDefaultPhoto(uri))
+    });
+  };
+ 
   const handleImage = (acceptedFiles) => {
-    // console.log(acceptedFiles[0].name);
-
     for (let i = 0; i < acceptedFiles?.length; i++) {
       formatImage(acceptedFiles[i], async (uri) => {
-        setOtherImages((otherImages) => [...otherImages, uri]);
+        dispatch(updatePropertyPhotos(uri))
       });
     }
   };
 
-  const handleProfileImg = (acceptedFiles) => {
-    formatImage(acceptedFiles[0], async (uri) => {
-      setProfileImg(uri);
-    });
-  };
-
   const submitListing = async() => {
     dispatch(setLoader({status: true}))
-    if (profileImg === "") {
+    if (defaultPhoto === "") {
       dispatch(setAlertModal({ status: true, type: "failed", message: "Uploading apartment Cover Image is required" }));
+      dispatch(setLoader({status: false}))
       return;
     }
-    if (otherImages?.length < 5 || otherImages?.length > 20) {
+    if (propertyPhotos?.length < 5 || propertyPhotos?.length > 20) {
       dispatch(
         setAlertModal({
           status: true,
@@ -46,15 +44,9 @@ const AgentRentUploads = ({ props }) => {
           message: "Other Apartment Images must not be less than 5 or greater than 20",
         })
       );
+      dispatch(setLoader({status: false}))
       return;
     }
-
-    // const images = {
-    //   defaultPhoto: profileImg,
-    //   propertyPhotos: otherImages
-    // }
-
-    // const payload = {...details, ...location, ...images}
 
     const payload = {
       propertyName: details?.propertyName,
@@ -69,8 +61,8 @@ const AgentRentUploads = ({ props }) => {
       address: location?.address,
       locationId: Number(location?.locationId),
       toilets: Number(details?.toilets),
-      defaultPhoto: profileImg,
-      propertyPhotos: otherImages
+      defaultPhoto: defaultPhoto,
+      propertyPhotos: propertyPhotos
     }
 
 
@@ -83,8 +75,8 @@ const AgentRentUploads = ({ props }) => {
       if(res?.status){
         dispatch(updateDetails({}))
         dispatch(updateLocation({}))
-        setProfileImg("")
-        setOtherImages([])
+        dispatch(updateDefaultPhoto(""))
+        dispatch(updatePropertyPhotos([]))
         props.jump(1)
         
      
@@ -95,13 +87,8 @@ const AgentRentUploads = ({ props }) => {
     }
   };
 
-  const removeFile = (file) => {
-    let images = [...otherImages];
-    const res = images?.filter((image) => image !== file);
-    setOtherImages(res);
-  };
 
-  //   console.log(otherImages);
+
   return (
     <>
       <Row className="gy-2">
@@ -112,14 +99,14 @@ const AgentRentUploads = ({ props }) => {
               <section>
                 <div {...getRootProps()} className="dropzone upload-zone dz-clickable">
                   <input {...getInputProps()} />
-                  {profileImg.length === 0 && (
+                  {defaultPhoto.length === 0 && (
                     <div className="dz-message">
                       <span className="dz-message-text">Drag and drop file</span>
                       <span className="dz-message-or">or</span>
                       <Button color="info">SELECT</Button>
                     </div>
                   )}
-                  {profileImg !== "" && (
+                  {defaultPhoto !== "" && (
                     <Col md="12">
                       <div className="preview-block">
                         <div className="custom-control custom-checkbox image-control">
@@ -130,7 +117,7 @@ const AgentRentUploads = ({ props }) => {
                           >
                             {" "}
                           </label>
-                          {profileImg !== "" && <img src={profileImg} alt="preview" />}
+                          {defaultPhoto !== "" && <img src={defaultPhoto} alt="Default Photo" />}
                         </div>
                       </div>
                     </Col>
@@ -153,26 +140,18 @@ const AgentRentUploads = ({ props }) => {
                     <span className="dz-message-or">or</span>
                     <Button color="warning">SELECT</Button>
                   </div>
-
-                  {/* {otherImages.map((file, index) => (
-                    <div key={file} className="dz-preview dz-processing dz-image-preview dz-error dz-complete">
-                      <div className="dz-image">
-                        <img src={file} alt="preview" />
-                      </div>
-                    </div>
-                  ))} */}
                 </div>
               </section>
             )}
           </Dropzone>
           <Row className="g-3 mb-3">
-            {otherImages.map((file, index) => (
+            {propertyPhotos.map((file, index) => (
               <Col md="3" className="col-6" key={index}>
                 <div className="preview-block mx-3">
                   <div className="custom-control custom-checkbox image-control" style={{ fontSize: 25, color: "red" }}>
                     <label
                       className="icon ni ni-cross-round-fill"
-                      onClick={() => removeFile(file)}
+                      onClick={() => dispatch(removePropertyPhoto(file))}
                       htmlFor="imageCheck1"
                     >
                       {" "}

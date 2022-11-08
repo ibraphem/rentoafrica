@@ -33,8 +33,6 @@ const AgentRentDetails = ({ props }) => {
     onSubmit,
   });
 
-  console.log(values);
-
   return (
     <form className="content clearfix" onSubmit={handleSubmit} autoComplete="off">
       <Row className="gy-2">
