@@ -3,7 +3,7 @@ import { Container, Row, Col } from "react-bootstrap";
 import "../../assets/css/publicStyles/error.css"
 
 
-const Error = ({errorCode, errorTitle, errorDesc}) => {
+const Error = ({errorCode, errorTitle, errorDesc, redir="/"}) => {
     return (
         <section className="gauto-notfound-area section_70">
         <Container>
@@ -15,8 +15,8 @@ const Error = ({errorCode, errorTitle, errorDesc}) => {
                 </h2>
                 <h3>{errorTitle}</h3>
                 <p>{errorDesc}</p>
-                <Link to="/" className="gauto-btn">
-                  Back To Home
+                <Link to={redir} className="gauto-btn">
+                  Go Back Home
                 </Link>
               </div>
             </Col>

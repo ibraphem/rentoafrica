@@ -7,7 +7,6 @@ import {
   FaBars,
 } from "react-icons/fa";
 import Slider from "react-slick";
-import { rentDataDetail } from "../../mock/rentData";
 import { amountFormat } from "../../utils/format";
 import "../../assets/css/publicStyles/rentDetails.css";
 import "slick-carousel/slick/slick.css";
@@ -22,7 +21,7 @@ import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
 import { aesEncryption } from "../../utils/encrypt";
 
 
-const Rent = () => {
+const Rent = ({rentDataDetail}) => {
   const [email, setEmail] = useState("");
   const [phoneNo, setPhoneNo] = useState("");
   const [initialPayment, setInitialPayment] = useState("");
@@ -33,11 +32,8 @@ const Rent = () => {
   const [errMsg, setErrMsg] = useState("")
   const [step, setStep] = useState(1)
 
-  let params = useParams();
-  let propertyId = Number(params?.id)
-
   const dispatch = useDispatch();
-
+  
   const settings = {
     dots: true,
     arrows: true,
@@ -49,7 +45,7 @@ const Rent = () => {
   
 
   useEffect(() => {
-    if(step === 2 && initialPayment >= rentDataDetail?.amount) {
+    if(step === 2 && initialPayment >= rentDataDetail?.propertyAmount) {
       setStep(1)
     }
   }, [step, initialPayment])
@@ -76,21 +72,21 @@ const Rent = () => {
       scrollToError()
       return
     }
-    if(initialPayment < rentDataDetail?.amount / 2) {
+    if(initialPayment < rentDataDetail?.propertyAmount / 2) {
       setShowAlert(true)
-      setErrMsg(`The minimum initial payment you can make is 50% of the annual rent - (\u20A6${amountFormat(rentDataDetail?.amount / 2)})`)
+      setErrMsg(`The minimum initial payment you can make is 50% of the annual rent - (\u20A6${amountFormat(rentDataDetail?.propertyAmount / 2)})`)
       scrollToError()
       return
     }
     
-    if(initialPayment > rentDataDetail?.amount) {
+    if(initialPayment > rentDataDetail?.propertyAmount) {
       setShowAlert(true)
-      setErrMsg(`The amount you entered is greater than the annual rent - (\u20A6${amountFormat(rentDataDetail?.amount)})`)
+      setErrMsg(`The amount you entered is greater than the annual rent - (\u20A6${amountFormat(rentDataDetail?.propertyAmount)})`)
       scrollToError()
       return
     }
 
-    if(initialPayment >= rentDataDetail?.amount / 2 && initialPayment < rentDataDetail?.amount && step === 1){
+    if(initialPayment >= rentDataDetail?.propertyAmount / 2 && initialPayment < rentDataDetail?.propertyAmount && step === 1){
       setStep(2)
       return;
 
@@ -130,9 +126,11 @@ const Rent = () => {
       scrollToError()
     }
   
-
-
   }
+  
+
+
+
 
   return (
     <>
@@ -141,10 +139,10 @@ const Rent = () => {
           <Row>
             <Col lg={6}>
               <Slider {...settings}>
-                {rentDataDetail?.images?.map((image) => (
+                {rentDataDetail?.propertyPhotos?.map((image) => (
                   <div className="car-booking-image" key={rentDataDetail?.id}>
                     <img
-                      src={image}
+                      src={image?.photoUrl}
                       alt="car"
                       style={{ height: "400px", objectFit: "cover" }}
                     />
@@ -154,24 +152,24 @@ const Rent = () => {
             </Col>
             <Col md={6}>
               <div className="car-booking-right">
-                <p className="rental-tag">{rentDataDetail?.apartmentType}</p>
+                <p className="rental-tag">{rentDataDetail?.propertyName}</p>
                 <h3>Ikeja, Lagos</h3>
                 <div className="price-rating">
                   <div className="price-rent">
                     <h4>
-                      &#8358;{amountFormat(rentDataDetail?.amount)}
-                      <span>/ {rentDataDetail?.paymentMode}</span>
+                      &#8358;{amountFormat(rentDataDetail?.propertyAmount)}/Annum
+                      
                     </h4>
                   </div>
                 </div>
-                <p> {rentDataDetail?.desc}</p>
+                <p> {rentDataDetail?.description}</p>
                 <div className="car-features clearfix" ref={errorRef}>
                   <ul>
                     <li>
-                      <FaToilet /> {rentDataDetail?.toilet} Toilet(s)
+                      <FaToilet /> {rentDataDetail?.toilets} Toilet/Bathroom
                     </li>
                     <li>
-                      <FaHome /> {rentDataDetail?.condition}
+                      <FaHome /> {rentDataDetail?.propertyConditionDescription}
                     </li>
                     {/* <li>
                       <FaUtensilSpoon /> {rentDataDetail?.kitchen} Kitchen(s)
@@ -179,13 +177,7 @@ const Rent = () => {
                   </ul>
                   <ul>
                     <li>
-                      <FaBed /> {rentDataDetail?.bedroom} Bedrooms
-                    </li>
-                    {/* <li>
-                      <FaChair /> {rentDataDetail?.livingRoom} Living Room
-                    </li> */}
-                    <li>
-                      <FaBars /> {rentDataDetail?.furnished}
+                      <FaBars /> {rentDataDetail?.furnishedStatusDescription}
                     </li>
                   </ul>
                 </div>
@@ -254,7 +246,7 @@ const Rent = () => {
                         <p>
                           <label>
                             Enter{" "}
-                            <CustomToolTip message={`Remember your rent payment can be flexible on RENTO. You may decide to pay the \u20A6${amountFormat(rentDataDetail?.amount)} annual fee outrightly or pay at least 50% (\u20A6${amountFormat(rentDataDetail?.amount / 2)}) of the annual fee and complete the rest over the next six months.`} >
+                            <CustomToolTip message={`Remember your rent payment can be flexible on RENTO. You may decide to pay the \u20A6${amountFormat(rentDataDetail?.propertyAmount)} annual fee outrightly or pay at least 50% (\u20A6${amountFormat(rentDataDetail?.propertyAmount / 2)}) of the annual fee and complete the rest over the next six months.`} >
                             <span className="text-primary">
                                 initial payment
                               </span>
@@ -265,7 +257,7 @@ const Rent = () => {
                             type="number"
                             value={initialPayment}
                             onChange={(e)=>setInitialPayment(e.target.value)}
-                            placeholder={`\u20A6${amountFormat(rentDataDetail?.amount / 2)} - \u20A6${amountFormat(rentDataDetail?.amount)}`}
+                            placeholder={`\u20A6${amountFormat(rentDataDetail?.propertyAmount / 2)} - \u20A6${amountFormat(rentDataDetail?.propertyAmount)}`}
                           />
                         </p>
                       </Col>

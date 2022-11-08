@@ -1,23 +1,46 @@
+import Resizer from "react-image-file-resizer";
+import moment from 'moment';
+
 export const amountFormat = (num) => {
     return num?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 };
 
-export const fileToBase64 = (fileUpload, callbackFunc, removeDataPrefix = false) => {
-    const fileName = fileUpload?.name;
-    const reader = new FileReader();
-
-    reader.onloadend = () => {
-        let base64Str = reader.result;
-        if(removeDataPrefix) {
-            base64Str = base64Str.replace("data:", "").replace(/^.+,/, "");
-        }
-
-        callbackFunc(base64Str, fileName);
-    };
-
-    if (fileName) {
-        reader.readAsDataURL(fileUpload);
+export const formatImage = (image, callbackFunc) => {
+  let fileInput = false;
+  if (image) {
+    fileInput = true;
+  }
+  if (fileInput) {
+    try {
+      Resizer.imageFileResizer(
+        image,
+        600,
+        400,
+        "JPEG",
+        100,
+        0,
+        (uri) => {
+          
+          callbackFunc(uri);
+       
+        },
+        "base64",
+        600,
+        400
+      );
+    } catch (err) {
+      console.log(err);
     }
+  }
+}
+
+export const simpleDateString = (date) => {
+  return date ? moment(date).format().replace(/T.+$/, '') : '';
 };
+
+export const sentenceCaseFormat = (str) => {
+  const capitalized = str.charAt(0).toUpperCase() + str.slice(1);
+  return capitalized;
+}
 
 

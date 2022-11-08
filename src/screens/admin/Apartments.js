@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Content from "../../layout/content/Content";
 import Head from "../../layout/head/Head";
 import {
@@ -8,47 +8,68 @@ import {
   BlockHeadContent,
   BlockTitle,
 } from "../../components/Component";
-import Layout from "../../layout/Index";
 import ApartmentTable from "../../shared/ApartmentTable";
 import { useParams } from "react-router";
-import { apartmentData } from "../../mock/apartments";
+import { useDispatch } from "react-redux";
+import { getAdminProperties, updateSearchTerm, updateStatus, updatePagination } from "../../redux/slices/adminPropertySlice";
+import { useSelector } from "react-redux";
+import { sentenceCaseFormat } from "../../utils/format";
 
 
 const Apartments = () => {
-const [houses, setHouses] = useState([])
-  let params = useParams();
-  let status = params?.status
+  const dispatch = useDispatch()
+  let param = useParams();
+  let urlStatus = param?.status
 
+  const data = useSelector((state) => state.adminProperties)
+  console.log(data);
 
+  const params = data?.params
+  const result = data?.properties?.data?.result
+
+  let status = urlStatus === "pending" ? 1 : urlStatus === "approved" ? 2 : urlStatus === "closed" ? 3 : 4
 
   useEffect(() => {
-    const res = apartmentData?.filter((apartment) => apartment?.status.toLowerCase() === status.toLowerCase())
-    setHouses(res)
-  }, [status])
+    dispatch(updateStatus(status))
+  }, [urlStatus, status])
   
 
+  useEffect(() => {
+    dispatch(getAdminProperties())
+   }, [params])
+  
+   const paginate = (pageNumber) => dispatch(updatePagination(pageNumber));
+
+   const search = (searchTerm) => {
+    if(searchTerm === ""){
+      dispatch(updateSearchTerm(null))
+    }else{
+      dispatch(updateSearchTerm(searchTerm))
+    }
+    
+  }
 
     
     return (
-        <Layout>
+        <>
         <Head title="DASHBOARD"></Head>
         <Content>
           <BlockHead size="sm">
             <BlockBetween>
               <BlockHeadContent>
                 <BlockTitle tag="h3" page>
-                  {status.toUpperCase()} APARTMENTS
+                  {sentenceCaseFormat(urlStatus)} Apartments
                 </BlockTitle>
               </BlockHeadContent>
             </BlockBetween>
           </BlockHead>
           <Block>
             <Block>
-            <ApartmentTable apartmentData={houses}/>
+            <ApartmentTable apartmentData={result?.data} loading={data?.loading} search={search} itemPerPage={params?.pageSize} currentItemsLength={result?.data?.length} dataLength={result?.pagination?.rowCount} currentPage={result?.pagination?.currentPage} paginate={paginate}/>
             </Block>
           </Block>
         </Content>
-      </Layout>
+      </>
     );
 };
 

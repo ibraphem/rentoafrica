@@ -6,14 +6,14 @@ import {
   BlockHeadContent,
   BlockTitle,
 } from "../../components/Component";
-import Layout from "../../layout/Index";
+
 
 
 const AgentDashboard = () => {
 
 
   return (
-    <Layout>
+    <>
       <Head title="DASHBOARD"></Head>
       <Content>
         <BlockHead size="sm">
@@ -28,7 +28,7 @@ const AgentDashboard = () => {
 
       
       </Content>
-    </Layout>
+    </>
   );
 };
 

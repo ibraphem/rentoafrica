@@ -6,11 +6,11 @@ import {
   BlockHeadContent,
   BlockTitle,
 } from "../../components/Component";
+import Layout from "../../layout/Index";
 
-
-const AdminDashboard = () => {
+const CorporateDashboard = () => {
     return (
-        <>
+        <Layout>
         <Head title="DASHBOARD"></Head>
         <Content>
           <BlockHead size="sm">
@@ -25,8 +25,8 @@ const AdminDashboard = () => {
   
         
         </Content>
-      </>
+      </Layout>
     );
 };
 
-export default AdminDashboard;
+export default CorporateDashboard;

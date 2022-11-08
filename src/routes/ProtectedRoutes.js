@@ -9,24 +9,22 @@ import ApartmentListing from "../screens/agents/ApartmentListing";
 import GatewayRoute from "./GatewayRoute";
 import AdminDashboard from "../screens/admin/AdminDashboard";
 import Apartments from "../screens/admin/Apartments";
+import AvailableApartments from "../screens/AvailableApartments";
+import CorporateList from "../screens/corporate/CorporateList";
 
 const ProtectedRoutes = () => {
-  const user = useSelector((state) => state.user?.user)
-  
+  const role = useSelector((state) => state.user?.user?.role)
+
   return (
     <Switch>
-      <Route
-        exact
-        path="/dashboard"
-        render={() => {
-          return user?.token && user?.role === "Agent" ? <AgentDashboard/> : user?.token && user?.role === "Admin" ? <AdminDashboard/> : <Redirect to="/login" />;
-        }}
-      />
-      <GatewayRoute exact path="/new-apartment" component={AddRentApartment} />
-      <GatewayRoute exact path="/transactions" component={AgentTransactions} />
-      <GatewayRoute exact path="/apartment-listing" component={ApartmentListing} />
-      <GatewayRoute exact path="/apartment/:status" component={Apartments} />
-    </Switch>
+      <GatewayRoute path="/dashboard" component={role === "Agent" ? AgentDashboard : AdminDashboard} roles={["Agent", "Admin", "Corporate"]}/>
+      <GatewayRoute path="/new-apartment" component={AddRentApartment} roles={["Agent"]} />
+      <GatewayRoute path="/transactions" component={AgentTransactions} roles={["Agent"]}  />
+      <GatewayRoute path="/apartment-listing" component={ApartmentListing} roles={["Agent"]} />
+      <GatewayRoute path="/apartment/:status" component={Apartments} roles={["Admin"]} />
+      <GatewayRoute path="/corporate/:status" component={CorporateList} roles={["Admin"]} />
+      <GatewayRoute path="/apartments" component={AvailableApartments} roles={["Corporate"]} />
+    </Switch> 
   );
 };
 

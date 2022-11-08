@@ -14,10 +14,27 @@ export const modalSlice = createSlice({
       message: "",
     },
 
+    confirmPopUp: {
+      status: false,
+      type: "",
+      title: "",
+      desc: "",
+      payload: null,
+      buttonText: "",
+      payload: null,
+      showActionBtn: true
+    },
+
+    formModal: {
+      status: false,
+      title: "",
+      type: "",
+    },
+    
   },
 
-  reducers: { 
-   setAlertModal: (state, { payload }) => {
+  reducers: {
+    setAlertModal: (state, { payload }) => {
       state.alertModal = {
         status: payload.status,
         type: payload.type,
@@ -31,15 +48,29 @@ export const modalSlice = createSlice({
         message: payload.message,
       };
     },
-  
-  },
 
+    setConfirmPopUp: (state, { payload }) => {
+      state.confirmPopUp = {
+        status: payload.status,
+        type: payload.type,
+        title: payload.title,
+        desc: payload.desc,
+        payload: payload.payload,
+        buttonText: payload.buttonText,
+        showActionBtn: payload.showActionBtn
+      };
+    },
+
+    setFormModal: (state, { payload }) => {
+      state.formModal = {
+        status: payload.status,
+        title: payload.title,
+        type: payload.type,
+        payload: payload.payload,
+      };
+    },
+  },
 });
 
-
-
-export const {
-  setAlertModal,
-  setLoader,
-} = modalSlice.actions;
+export const { setAlertModal, setLoader, setConfirmPopUp, setFormModal } = modalSlice.actions;
 export default modalSlice.reducer;

@@ -69,10 +69,11 @@ export const advancedSchema = yup.object().shape({
 export const enlistDetailSchema = yup.object().shape({
   propertyType: yup.string().required("Select Property Type"),
   propertyCondition: yup.string().required("Select Property Condition"),
-  propertyNoOfToilet: yup.string().required("Select No of bathroom/toilet"),
-  rentFeeUnit: yup.string().required("Select an Option"),
-  furnishing: yup.string().required("Select an Option"),
-  rentFee: yup
+  toilets: yup.string().required("Select No of bathroom/toilet"),
+  propertyName: yup.string().required("Write a short title"),
+  description: yup.string().required("Write a detail description of the apartment"),
+  furnishedStatus: yup.string().required("Select an Option"),
+  propertyAmount: yup
     .string()
     .required("Rent Fee is required")
     .matches(/^[0-9]+$/, "Must be only digits"),
@@ -80,14 +81,15 @@ export const enlistDetailSchema = yup.object().shape({
 });
 
 export const enlistLocationSchema = yup.object().shape({
-  state: yup.string().required("Select an option"),
-  area: yup.string().required("Select an option"),
+  stateId: yup.string().required("Select an option"),
+  locationId: yup.string().required("Select an option"),
   address: yup.string().required("Property Address is required"),
-  phone: yup
+  contactPersonName: yup.string().required("Contact person name is required"),
+  contactPersonPhoneNo: yup
   .string()
   .required("Your Phone Number is required")
   .matches(/^[0-9]+$/, "Must be only digits")
   .min(11, "Must be exactly 11 digits")
   .max(11, "Must be exactly 11 digits"),
- 
+  contactPersonEmail: yup.string().email("Please enter a valid email"),
 });

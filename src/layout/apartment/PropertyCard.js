@@ -17,53 +17,53 @@ const PropertyCard = ({data, isfavScreen = false}) => {
   
     return (
         <div className="single-offers">
-        <Link to={`/details/${data?.id}`}>
+        <Link to={`/details/${data?.propertyId}`}>
         <div className="offer-image">
-          <Link to={`/details/${data?.id}`}>
-            <img src={data?.coverImage} alt={data?.apartmentType} />
+          <Link to={`/details/${data?.propertyId}`}>
+            <img src={data?.defaultPhoto} alt={data?.propertyName} />
           </Link>
         </div>
         </Link>
         <div className="offer-text">
-          <Link to={`/details/${data?.id}`}>
-            <h3>{data?.apartmentType} at {data?.lga} {data?.state}</h3>
+          <Link to={`/details/${data?.propertyId}`}>
+            <h3>{data?.propertyName}</h3>
           </Link>
-          <Link to={`/details/${data?.id}`}>
+          <Link to={`/details/${data?.propertyId}`}>
           <h4>
-          &#8358;{amountFormat(data?.amount)}<span>/ {data?.paymentMode}</span>
+          &#8358;{amountFormat(data?.propertyAmount)}<span>/Annum</span>
           </h4>
           <ul>
             <li>
               <FaToilet />
-              {data?.toilet} Toilet
+              {data?.toilets} bath/toilet
             </li>
-            <li>
+            {/* <li>
               <FaHome />
-              {data?.condition}
-            </li>
+              {data?.propertyConditionDescription}
+            </li> */}
             <li>
             <FaBed />
-              {data?.furnished}
+              {data?.furnishedStatusDescription}
             </li>
           </ul>
           </Link>
           <div className={isfavScreen ? "offer-action2 offer-action" : "offer-action"}>
             <Link
-              to={`/details/${data?.id}`}
+              to={`/details/${data?.propertyId}`}
               className="offer-btn-1"
             >
               Details
             </Link>
           {isfavScreen ? (
-              <Link
+              <Link 
               className="offer-btn-2"
-              onClick={() => dispatch(removeFromFavoriteRent(data?.id))} 
+              onClick={() => dispatch(removeFromFavoriteRent(data?.propertyId))} 
             >
                Remove
             </Link>
           ): (
             <Link
-            className={checkIsFavRent(data?.id) ? "offer-btn-2 disabled-link" : "offer-btn-2"}
+            className={checkIsFavRent(data?.propertyId) ? "offer-btn-2 disabled-link" : "offer-btn-2"}
             onClick={() => dispatch(addToFavoriteRent(data))} 
           >
              Favorite

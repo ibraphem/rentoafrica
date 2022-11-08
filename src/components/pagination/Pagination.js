@@ -5,6 +5,8 @@ import { Pagination, PaginationLink, PaginationItem } from "reactstrap";
 const PaginationComponent = ({ itemPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
 
+  // console.log(currentPage);
+
   for (let i = 1; i <= Math.ceil(totalItems / itemPerPage); i++) {
     pageNumbers.push(i);
   }

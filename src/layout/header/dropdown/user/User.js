@@ -6,8 +6,8 @@ import { LinkList, LinkItem } from "../../../../components/links/Links";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { removeUser } from "../../../../redux/slices/userSlice";
-import { useHistory } from "react-router";
 import { FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 const User = () => { 
   const [open, setOpen] = useState(false);
@@ -15,12 +15,12 @@ const User = () => {
 
   const user = useSelector((state) => state.user?.user)
   const dispatch = useDispatch()
-  const history = useHistory()
+
 
 
   const handleSignout = () => {
     dispatch(removeUser())
-    history.push('/login')
+
   };
 
   return (
@@ -67,10 +67,10 @@ const User = () => {
         </div>
         <div className="dropdown-inner">
           <LinkList>
-            <a href="/" onClick={handleSignout}>
+            <Link to="/" onClick={handleSignout}>
               <Icon name="signout"></Icon>
               <span>Sign Out</span>
-            </a>
+            </Link>
           </LinkList>
         </div>
       </DropdownMenu>

@@ -206,7 +206,7 @@ const Menu = ({ sidebarToggle, mobileView }) => {
 
   return (
     <ul className="nk-menu">
-      {menu[role].map((item) =>
+      {menu[role]?.map((item) =>
         item.heading ? (
           <MenuHeading heading={item.heading} key={item.heading} />
         ) : (

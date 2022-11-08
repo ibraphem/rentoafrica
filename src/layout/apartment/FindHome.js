@@ -4,7 +4,7 @@ import Select from "react-dropdown-select";
 import { lgas } from "../../mock/lgas";
 import { states } from "../../mock/state";
 import "../../assets/css/publicStyles/findHome.css"
-import {  apartments } from "../../mock/apartments";
+import {  propertyTypes } from "../../mock/apartments";
 
 const FindHome = () => {
   const [selectedState, setSelectedState] = useState([])
@@ -17,7 +17,7 @@ const FindHome = () => {
       setAllLGAs(lga)
     }
   }, [selectedState])
-  console.log(selectedLGAs);
+
   
     return (
         <section className="gauto-find-area" style={{marginBottom: "20px"}}>
@@ -68,8 +68,8 @@ const FindHome = () => {
                           <Col md={4}>
                             <p>
                               <select placeholder="Property type">
-                                {apartments.map((apartment)=> (
-                                  <option key={apartment?.id}>{apartment?.type}</option>
+                                {propertyTypes.map((apartment)=> (
+                                  <option key={apartment?.value}>{apartment?.text}</option>
                                 ))}
                               </select>
                             </p>

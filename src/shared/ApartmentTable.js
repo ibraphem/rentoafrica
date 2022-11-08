@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { DropdownMenu, DropdownToggle, UncontrolledDropdown, DropdownItem, Badge } from "reactstrap";
 import {
   Icon,
@@ -7,13 +8,60 @@ import {
   DataTableRow,
   DataTableItem,
   Button,
+  PaginationComponent,
 } from "../components/Component";
-import { amountFormat } from "../utils/format";
+import { amountFormat, simpleDateString } from "../utils/format";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import TableLoader from "../components/loaders/TableLoader";
+import { setConfirmPopUp, setFormModal } from "../redux/slices/modalSlice";
+import { useDispatch } from "react-redux";
 
-const ApartmentTable = ({apartmentData}) => {
+const ApartmentTable = ({apartmentData, itemPerPage, paginate, currentItemsLength, dataLength, loading, currentPage, search}) => {
     const role = useSelector((state) => state.user?.user?.role)
+    const [searchTerm, setSearchTerm] = useState("")
+    const dispatch = useDispatch()
+
+    console.log(currentPage);
+
+    const approve = (id, title) => {
+      dispatch(
+        setConfirmPopUp({
+          status: true,
+          type: "approveApartment",
+          title: "Approval Confirmation",
+          desc: `Are you sure you want to approve this apartment (${title})? Your approval will immediately make this property available for rent to prospective customers.`,
+          payload: id,
+          buttonText: "Approve",
+          showActionBtn: true,
+        })
+      );
+    }
+
+    const decline = (id, title) => {
+      dispatch(
+        setFormModal({
+          status: true,
+          type: "declineApartment",
+          title: `Rejection Confirmation (${title})`,
+          payload: id,
+        })
+      );
+    }
+
+    const rejectionReason = (reason, title) => {
+      dispatch(
+        setConfirmPopUp({
+          status: true,
+          type: "rejectionReason",
+          title: `(${title})`,
+          desc: reason,
+          showActionBtn: false,
+        })
+      );
+    }
+
+   
     return (
         <DataTable className="card-stretch">
         <div className="card-inner position-relative card-tools-toggle">
@@ -39,9 +87,9 @@ const ApartmentTable = ({apartmentData}) => {
                 <li>
                   <div className="form-control-wrap">
                     <div className="input-group">
-                      <input type="text" className="form-control" placeholder="search..." />
+                      <input type="text" className="form-control" placeholder="search..." onChange={(e) => setSearchTerm(e.target.value)} />
                       <div className="input-group-append">
-                        <Button color="primary" className="btn-dim">
+                        <Button color="primary" className="btn-dim" onClick={()=> search(searchTerm)}>
                         <Icon name="search"></Icon>
                         </Button>
                       </div>
@@ -59,7 +107,7 @@ const ApartmentTable = ({apartmentData}) => {
               <span className="sub-text">Date</span>
             </DataTableRow>
             <DataTableRow>
-              <span className="sub-text">Type</span>
+              <span className="sub-text">Title</span>
             </DataTableRow>
             <DataTableRow size="md">
               <span className>Address</span>
@@ -67,7 +115,7 @@ const ApartmentTable = ({apartmentData}) => {
             <DataTableRow>
               <span>Rent Fee</span>
             </DataTableRow>
-            <DataTableRow size="lg">
+            <DataTableRow size="lg"> 
               <span className="sub-text">Status</span>
             </DataTableRow>
             <DataTableRow>
@@ -75,38 +123,38 @@ const ApartmentTable = ({apartmentData}) => {
             </DataTableRow>
           </DataTableHead>
           {/*Head*/}
-          {apartmentData.length > 0
+          {currentItemsLength > 0
             ? apartmentData.map((item) => {
                 return (
-                  <DataTableItem key={item.id}>
+                  <DataTableItem key={item.propertyId}>
                     <DataTableRow>
                       <div className="user-info">
-                        <span className="tb-lead">{item.date} </span>
+                        <span className="tb-lead">{simpleDateString(item?.createdDate)} </span>
                       </div>
                     </DataTableRow>
                     <DataTableRow>
-                      <span>{item?.type}</span>
+                      <span>{item?.propertyName}</span>
                     </DataTableRow>
                     <DataTableRow size="md">
                       <span>{item?.address}</span>
                     </DataTableRow>
                     <DataTableRow>
-                      <span>&#8358;{amountFormat(item?.fee)}</span>
+                      <span>&#8358;{amountFormat(item?.propertyAmount)}</span>
                     </DataTableRow>
                     <DataTableRow>
                       <Badge
                         color={
-                          item.status === "Approved"
+                          item.propertyStatusDescription === "Approved"
                             ? "success"
-                            : item.status === "Pending"
+                            : item.propertyStatusDescription === "Pending"
                             ? "warning"
-                            : item.status === "Declined"
+                            : item.propertyStatusDescription === "Rejected"
                             ? "danger"
                             : "primary"
                         }
                         size="sm"
                       >
-                        {item.status}
+                        {item.propertyStatusDescription}
                       </Badge>
                     </DataTableRow>
            
@@ -132,7 +180,7 @@ const ApartmentTable = ({apartmentData}) => {
                                     View
                                   </DropdownItem>
                                 </li>
-                                {item.status === "Declined" && (
+                                {item.propertyStatusDescription === "Rejected" && (
                                   <li>
                                     <DropdownItem
                                       tag="a"
@@ -146,7 +194,7 @@ const ApartmentTable = ({apartmentData}) => {
                                   </li>
                                 )}
     
-                                {item.status === "Approved" && (
+                                {item.propertyStatusDescription === "Approved" && (
                                   <>
                               
                                     <li>
@@ -163,7 +211,7 @@ const ApartmentTable = ({apartmentData}) => {
                                   </>
                                 )}
     
-                                {item.status === "Pending" && (
+                                {item.propertyStatusDescription === "Pending" && (
                                   <>
                                     <li>
                                       <DropdownItem
@@ -215,39 +263,23 @@ const ApartmentTable = ({apartmentData}) => {
                                   View
                                 </DropdownItem>
                               </li>
-                              {item.status === "Declined" && (
-                                <li>
-                                  <DropdownItem
-                                    tag="a"
-                                    href="#dropdownitem"
-                                    onClick={(ev) => {
-                                      ev.preventDefault();
-                                    }}
-                                  >
-                                    Reason
-                                  </DropdownItem>
-                                </li>
-                              )}
-  
-                              {item.status === "Approved" && (
+                              {item.propertyStatusDescription === "Pending" && (
                                 <>
-                            
+                                
                                   <li>
                                     <DropdownItem
-                                      tag="a"
-                                      href="#dropdownitem"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                      }}
+                                      onClick={() => approve(item.propertyId, item?.propertyName)}
                                     >
-                                       Remove
+                                      Approve
                                     </DropdownItem>
                                   </li>
-                                </>
-                              )}
-  
-                              {item.status === "Pending" && (
-                                <>
+                                  <li>
+                                    <DropdownItem
+                                      onClick={() => decline(item.propertyId, item?.propertyName)}
+                                    >
+                                      Decline
+                                    </DropdownItem>
+                                  </li>
                                   <li>
                                     <DropdownItem
                                       tag="a"
@@ -270,6 +302,21 @@ const ApartmentTable = ({apartmentData}) => {
                                       Remove
                                     </DropdownItem>
                                   </li>
+                                </>
+                              )}
+                              {item.propertyStatusDescription === "Rejected" && (
+                                <li>
+                                  <DropdownItem
+                                   onClick={() => rejectionReason(item.rejectedReason, item?.propertyName)}
+                                  >
+                                    Reason
+                                  </DropdownItem>
+                                </li>
+                              )}
+  
+                              {item.propertyStatusDescription === "Approved" && (
+                                <>
+                            
                                   <li>
                                     <DropdownItem
                                       tag="a"
@@ -278,22 +325,13 @@ const ApartmentTable = ({apartmentData}) => {
                                         ev.preventDefault();
                                       }}
                                     >
-                                      Approve
-                                    </DropdownItem>
-                                  </li>
-                                  <li>
-                                    <DropdownItem
-                                      tag="a"
-                                      href="#dropdownitem"
-                                      onClick={(ev) => {
-                                        ev.preventDefault();
-                                      }}
-                                    >
-                                      Decline
+                                       Remove
                                     </DropdownItem>
                                   </li>
                                 </>
                               )}
+  
+                            
                             </ul>
                           </DropdownMenu>
                         </UncontrolledDropdown>
@@ -305,6 +343,37 @@ const ApartmentTable = ({apartmentData}) => {
               })
             : null}
         </DataTableBody>
+     {!loading ? (
+         <div className="card-inner">
+         {currentItemsLength > 0 ? (
+           <PaginationComponent
+             itemPerPage={itemPerPage}
+             totalItems={dataLength}
+             paginate={paginate}
+             currentPage={currentPage}
+           />
+         ) : (
+           <div className="text-center">
+             <span className="text-silent">No data found</span>
+           </div>
+         )}
+       </div>
+     ): (
+      <div className="card-inner">
+      {currentItemsLength > 0 ? ( 
+        <PaginationComponent
+          itemPerPage={itemPerPage}
+          totalItems={dataLength}
+          paginate={paginate}
+          currentPage={currentPage}
+        />
+      ) : (
+        <div className="text-center">
+          <TableLoader/>
+        </div>
+      )}
+    </div>
+     )}
       </DataTable>
     );
 };

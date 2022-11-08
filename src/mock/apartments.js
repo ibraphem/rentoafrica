@@ -151,51 +151,43 @@ export const apartmentData = [
     },
   ];
 
-  export const apartments = [
+  export const propertyTypes = [
     {
-        "id": "1",
-        "type": "Self Contain",
+      "value": "1",
+      "text": "Self Contain"
     },
     {
-        "id": "2",
-        "type": "Mini Flat",
+      "value": "2",
+      "text": "Mini Flat"
     },
     {
-        "id": "3",
-        "type": "2 Bedroom Flat",
+      "value": "3",
+      "text": "2 Bedroom"
     },
     {
-        "id": "4",
-        "type": "3 Bedroom Flat",
+      "value": "4",
+      "text": "3 Bedroom"
     },
     {
-        "id": "5",
-        "type": "4 Bedroom Flat",
-    },
-    {
-        "id": "6",
-        "type": "Service Apartment",
-    },
-]
+      "value": "5",
+      "text": "4 Bedroom"
+    }
+  ]
 
-export const apartmentCondion = [
-  {
-      "id": "1",
-      "type": "Newly Built",
-  },
-  {
-      "id": "2",
-      "type": "Neatly Used",
-  },
-  {
-      "id": "3",
-      "type": "Recently renovated",
-  },
-  {
-      "id": "4",
-      "type": "Not New",
-  },
-]
+  export const propertyConditions = [
+    {
+      "value": "1",
+      "text": "New"
+    },
+    {
+      "value": "2",
+      "text": "Used"
+    },
+    {
+      "value": "3",
+      "text": "Renovated"
+    }
+  ]
 
 export const furnishing = [
   {
@@ -235,7 +227,23 @@ export const toilets = [
 },
 {
   "id": "6",
-  "type": "Greater than 5",
+  "type": "6",
+},
+{
+  "id": "7",
+  "type": "7",
+},
+{
+"id": "8",
+"type": "8",
+},
+{
+  "id": "9",
+  "type": "9",
+},
+{
+"id": "10",
+"type": "10",
 },
 ]
 

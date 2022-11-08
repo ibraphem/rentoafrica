@@ -1,37 +1,40 @@
 import Head from "../..//layout/head/Head";
 import Content from "../../layout/content/Content";
-import {
-  Block,
-  BlockHead,
-  BlockHeadContent,
-  BlockTitle,
-  PreviewCard,
-} from "../../components/Component";
+import { Block, BlockHead, BlockHeadContent, BlockDes, BlockTitle, PreviewCard } from "../../components/Component";
 import { Steps, Step } from "react-step-builder";
-import Layout from "../../layout/Index";
 import AgentRentDetails from "../../layout/apartment/AgentRentDetails";
 import AgentRentLocation from "../../layout/apartment/AgentRentLocation";
 import AgentRentUploads from "../../layout/apartment/AgentRentUploads";
-
+import { Button } from "reactstrap";
 
 const DetailsForm = (props) => {
-  return (
-    <AgentRentDetails props={props}/>
-  )
+  return <AgentRentDetails props={props} />;
 };
 
 const LocationForm = (props) => {
-  return (
-    <AgentRentLocation props={props}/>
-  )
+  return <AgentRentLocation props={props} />;
 };
 
 const ImagesUploadForm = (props) => {
-  return (
-    <AgentRentUploads props={props}/>
-  )
+  return <AgentRentUploads props={props} />;
 };
 
+const Success = (props) => {
+  return (
+    <>
+    <div className="d-flex justify-content-center align-items-center p-3">
+      <BlockTitle tag="h6" className="text-center">
+        Thank you for enlisting a rent property on RENTO. We will verify this apartment and get back to you.
+      </BlockTitle>
+    </div>
+    <div className="mt-3" style={{textAlign:"center"}}>
+     <Button color="primary" type="submit">
+     Enlist A new apartment
+   </Button>
+   </div>
+   </>
+  );
+};
 
 const Header = (props) => {
   return (
@@ -58,18 +61,15 @@ const Header = (props) => {
   );
 };
 
-
 const config = {
   before: Header,
 };
 
 const AddRentApartment = () => {
   return (
-    <Layout>
+    <>
       <Head title="Add rent apartment" />
       <Content page="component">
-      
-
         <Block size="lg">
           <BlockHead>
             <BlockHeadContent>
@@ -83,13 +83,13 @@ const AddRentApartment = () => {
                 <Step component={DetailsForm} />
                 <Step component={LocationForm} />
                 <Step component={ImagesUploadForm} />
-            
+                
               </Steps>
             </div>
           </PreviewCard>
         </Block>
       </Content>
-    </Layout>
+    </>
   );
 };
 

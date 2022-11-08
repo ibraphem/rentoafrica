@@ -12,7 +12,7 @@ const favoriteRentSlice = createSlice({
             state.rent = [...state.rent, action.payload]
         },
         removeFromFavoriteRent: (state, action) => {
-            state.rent = state.rent?.filter((rent) => rent?.id !== action.payload)
+            state.rent = state.rent?.filter((rent) => rent?.propertyId !== action.payload)
         }
 
     }

@@ -16,7 +16,6 @@ import {
   DataTableItem,
   Button,
 } from "../../components/Component";
-import Layout from "../../layout/Index";
 import { amountFormat } from "../../utils/format";
 import { Link } from "react-router-dom";
 import { transactionData } from "../../mock/transaction";
@@ -24,7 +23,7 @@ import { FaArrowAltCircleDown, FaArrowAltCircleUp } from "react-icons/fa";
 
 const AgentTransactions = () => {
     return (
-        <Layout>
+        <>
         <Head title="DASHBOARD"></Head>
         <Content>
           <BlockHead size="sm">
@@ -158,7 +157,7 @@ const AgentTransactions = () => {
             </Block>
           </Block>
         </Content>
-      </Layout>
+      </>
     );
 };
 

@@ -7,6 +7,7 @@ export const apartmentListingSlice = createSlice({
     location: {},
     defaultPhoto: "",
     propertyPhotos: [],
+    locations: []
   },
 
   reducers: {
@@ -22,9 +23,12 @@ export const apartmentListingSlice = createSlice({
     updatePropertyPhotos: (state, { payload }) => {
       state.propertyPhotos = payload;
     },
+    updateLocations: (state, { payload }) => {
+      state.locations = payload;
+    },
   },
 });
 
-export const { updateDetails, updateLocation, updateDefaultPhoto, updatePropertyPhotos } =
+export const { updateDetails, updateLocation, updateDefaultPhoto, updatePropertyPhotos, updateLocations } =
   apartmentListingSlice.actions;
 export default apartmentListingSlice.reducer;

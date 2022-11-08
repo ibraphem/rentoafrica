@@ -34,7 +34,7 @@ const menu = {
       link: "/dashboard",
     },
     {
-      icon: "tile-thumb",
+      icon: "building",
       text: "Apartments",
       active: false,
       subMenu: [
@@ -56,7 +56,37 @@ const menu = {
         },
       ],
     },
+    {
+      icon: "building",
+      text: "Corporate",
+      active: false,
+      subMenu: [
+        {
+          text: "Pending",
+          link: "/corporate/pending",
+        },
+        {
+          text: "Approved",
+          link: "/corporate/approved",
+        },
+        {
+          text: "Declined",
+          link: "/corporate/declined",
+        },
+      ],
+    },
   ],
-
+  Corporate: [
+    {
+      icon: "brick-fill",
+      text: "Dashboad",
+      link: "/dashboard",
+    },
+    {
+      icon: "building",
+      text: "Apartments",
+      link: "/apartments",
+    },
+  ]
 };
 export default menu;

@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import Toggle from "../sidebar/Toggle";
 import User from "./dropdown/user/User";
+import { FaHeart } from "react-icons/fa";
 
 
 const Header = ({ fixed, theme, className, setVisibility, ...props }) => {
@@ -35,9 +36,9 @@ const Header = ({ fixed, theme, className, setVisibility, ...props }) => {
               <li className="user-dropdown"  onClick={() => setVisibility(false)}>
                 <User />
               </li>
-              {/* <li className="notification-dropdown mr-n1"  onClick={() => setVisibility(false)}>
-                <Notification />
-              </li> */}
+              <li className="notification-dropdown mr-n1"  onClick={() => setVisibility(false)}>
+                <FaHeart size={25}/>
+              </li>
             </ul>
           </div>
         </div>

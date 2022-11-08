@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Content from "../../layout/content/Content";
 import Head from "../../layout/head/Head";
 import {
@@ -10,13 +11,34 @@ import {
   Row,
   Col,
 } from "../../components/Component";
-import Layout from "../../layout/Index";
 import ApartmentTable from "../../shared/ApartmentTable";
-import { apartmentData } from "../../mock/apartments";
+import { useDispatch } from "react-redux";
+import { getAgentProperties, updatePagination, updateSearchTerm } from "../../redux/slices/agentPropertySlice";
+import { useSelector } from "react-redux";
 
 const ApartmentListing = () => {
+  const dispatch = useDispatch()
+  const data = useSelector((state) => state.agentProperties)
+  const params = data?.params
+  const result = data?.properties?.data?.result
+
+  const paginate = (pageNumber) => dispatch(updatePagination(pageNumber));
+
+  useEffect(() => {
+   dispatch(getAgentProperties())
+  }, [params])
+
+  const search = (searchTerm) => {
+    if(searchTerm === ""){
+      dispatch(updateSearchTerm(null))
+    }else{
+      dispatch(updateSearchTerm(searchTerm))
+    }
+    
+  }
+  
     return (
-        <Layout>
+        <>
         <Head title="DASHBOARD"></Head>
         <Content>
           <BlockHead size="sm">
@@ -62,14 +84,14 @@ const ApartmentListing = () => {
               </Col>
             </Row>
           </Block>
-  
+   
           <Block>
             <Block>
-            <ApartmentTable apartmentData={apartmentData}/>
+            <ApartmentTable apartmentData={result?.data} loading={data?.loading} search={search} itemPerPage={params?.pageSize} currentItemsLength={result?.data?.length} dataLength={result?.pagination?.rowCount} paginate={paginate} currentPage={result?.pagination?.currentPage}/>
             </Block>
           </Block>
         </Content>
-      </Layout>
+      </>
     );
 };
 

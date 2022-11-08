@@ -9,27 +9,30 @@ import RentDetail from "../screens/RentDetail";
 import EmailVerification from "../screens/EmailVerification";
 import { useSelector } from "react-redux";
 import ForgotPassword from "../screens/ForgotPassword";
+import Error from "../layout/error/Error";
 
 const PublicRoutes = () => {
     const token = useSelector((state) => state.user?.user?.token)
+
+    
   return (
     <Switch>
       <div className="wrapper">
       <Route
         exact
         path="/login"
-        render={() => {
+        render={() => { 
           return token ? <Redirect to="/dashboard" /> : <Login/>;
         }}
       />
         <Route exact path="/" component={Home} />
-        {/* <Route exact path="/login" component={Login} /> */}
         <Route exact path="/favorites" component={FavouriteApartment} />
         <Route exact path="/details/:id" component={RentDetail} />
         <Route exact path="/register/agent" component={AgentRegister} />
         <Route exact path="/register/corporate" component={CorporateRegister} />
         <Route exact path="/confirmemail/:code" component={EmailVerification} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
+      
       </div>
     </Switch>
   );

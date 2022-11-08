@@ -20,8 +20,8 @@ const Hero = () => {
                     <Row>
                       <Col md={12}>
                           <div className="heroCaption">
-                            <h2>Agency Fee <FaRegTimesCircle color="#ec3323"/></h2>
-                            <h2>Agreement Fee <FaRegTimesCircle color="#ec3323"/></h2>
+                            <h2>No Agency Fee <FaRegTimesCircle color="#ec3323"/></h2>
+                            <h2>No Agreement Fee <FaRegTimesCircle color="#ec3323"/></h2>
                             <h2>Flexible Payment <FaCheckCircle color="#00ff00"/></h2>
 
                           </div>
