@@ -13,8 +13,6 @@ const Home = () => {
     const params = data?.params
     const result = data?.properties?.data?.result
 
-    console.log(result);
-
     useEffect(() => {
         dispatch(getProperties())
        }, [params, dispatch])
