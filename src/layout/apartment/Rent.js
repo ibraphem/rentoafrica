@@ -6,13 +6,8 @@ import "../../assets/css/publicStyles/rentDetails.css";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import RentApartment from "./RentApartment";
-import { useSelector } from "react-redux";
 
-const Rent = ({ rentDataDetail, rentForm = false }) => {
-
-  const role = useSelector((state) => state.user?.user?.role)
-
-  console.log(role);
+const Rent = ({ rentDataDetail, rentForm = false, otherDetails = false }) => {
   
   const settings = {
     dots: true,
@@ -44,7 +39,7 @@ const Rent = ({ rentDataDetail, rentForm = false }) => {
             <Col md={6}>
               <div className="car-booking-right">
                 <p className="rental-tag">{rentDataDetail?.propertyName}</p> 
-                {role === "Agent" || role === "Admin" ? <span className={rentDataDetail?.propertyStatusDescription === "Rejected" ? "text-danger": "text-info"} style={{fontSize:"1.5rem"}}><i> ~ {rentDataDetail?.propertyStatusDescription}</i></span> : null} 
+                {otherDetails && <span className={rentDataDetail?.propertyStatusDescription === "Rejected" ? "text-danger": "text-info"} style={{fontSize:"1.5rem"}}><i> ~ {rentDataDetail?.propertyStatusDescription}</i></span>} 
 
                 <h3>
                   {rentDataDetail?.location}, {rentDataDetail?.state}
@@ -76,7 +71,7 @@ const Rent = ({ rentDataDetail, rentForm = false }) => {
                 </div>
 
                 
-                {role === "Agent" || role === "Admin" ? (
+                {otherDetails && (
                   
                 <div className="order-summury-box mt-2">
                 <h3>Other Info</h3>
@@ -121,7 +116,7 @@ const Rent = ({ rentDataDetail, rentForm = false }) => {
                   </tbody>
                 </table>
               </div>
-                ): null}
+                )}
                 
 
               </div>

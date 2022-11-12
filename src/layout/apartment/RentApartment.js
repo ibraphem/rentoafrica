@@ -134,6 +134,7 @@ const RentApartment = ({ rentDataDetail }) => {
 
                 <Tabs defaultActiveKey="tenant" id="fill-tab-example" className="mb-3 tabClass" fill>
                   <Tab eventKey="tenant" title="Full Rent Pay">
+                    <div className="rent-form-box">
                    <form onSubmit={applyForRent}>
                     <Row>
                     <Col lg={6} md={12} className="mb-2">
@@ -196,10 +197,13 @@ const RentApartment = ({ rentDataDetail }) => {
                       
 
                       <Col lg={12} md={12} className="mt-2">
-                      <Button type="submit"className="p-2" variant="primary">Proceed</Button>
+                      
+                      <Button type="submit"className="p-2" style={{width: "100%"}} variant="primary">Proceed</Button>
+                     
                       </Col>
                     </Row>
                   </form>
+                  </div>
                   </Tab>
                   <Tab eventKey="corporate" title="Flexible Rent Pay">
                     <p>Hot</p>
