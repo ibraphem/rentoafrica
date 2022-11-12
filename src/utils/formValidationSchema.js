@@ -93,3 +93,15 @@ export const enlistLocationSchema = yup.object().shape({
   .max(11, "Must be exactly 11 digits"),
   contactPersonEmail: yup.string().email("Please enter a valid email"),
 });
+
+export const fullPayValidationSchema = yup.object().shape({
+  firstName: yup.string().required("First name is required"),
+  lastName: yup.string().required("Last name is required"),
+  phoneNo: yup
+    .string()
+    .required("Phone Number is required")
+    .matches(/^[0-9]+$/, "Must be only digits")
+    .min(11, "Must be exactly 11 digits")
+    .max(11, "Must be exactly 11 digits"),
+  email: yup.string().email("Please enter a valid email").required("Email is required"),
+});
