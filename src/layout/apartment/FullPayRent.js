@@ -27,7 +27,7 @@ const FullPayRent = ({rentDataDetail}) => {
     dispatch(setLoader({status: false}))
     if(res) {
       dispatch(setAlertModal({status: true, type: res?.status ? "success" : "failed", message: res?.message}))
-      // res?.status && resetForm({values: ""})
+      res?.status && resetForm({values: ""})
     }else {
       dispatch(setAlertModal({status: true, type:"failed", message: "OOPS, Something went wrong. Please try again"}))
     }
@@ -42,7 +42,7 @@ const FullPayRent = ({rentDataDetail}) => {
     phoneNo: "",
   };
   return (
-    <Formik enableReinitialize initialValues={initialValues} validationSchema={fullPayValidationSchema} onSubmit={(values) => handleSubmit(values)}>
+    <Formik enableReinitialize initialValues={initialValues}  validationSchema={fullPayValidationSchema} onSubmit={(values, resetForm) => handleSubmit(values)}>
       {({ errors, touched }) => (
         <Form>
           <Row>

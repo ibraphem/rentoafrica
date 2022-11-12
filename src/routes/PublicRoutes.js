@@ -9,6 +9,7 @@ import RentDetail from "../screens/RentDetail";
 import EmailVerification from "../screens/EmailVerification";
 import { useSelector } from "react-redux";
 import ForgotPassword from "../screens/ForgotPassword";
+import Password from "../shared/Password";
 
 
 const PublicRoutes = () => {
@@ -30,7 +31,7 @@ const PublicRoutes = () => {
         <Route exact path="/details/:id" component={RentDetail} />
         <Route exact path="/register/agent" component={AgentRegister} />
         <Route exact path="/register/corporate" component={CorporateRegister} />
-        <Route exact path="/confirmemail/:code" component={EmailVerification} />
+        <Route exact path="/confirmemail/:role/:code" component={EmailVerification} />
         <Route exact path="/forgot/password" component={ForgotPassword} />
       
       </div>

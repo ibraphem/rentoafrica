@@ -7,6 +7,7 @@ import "../assets/css/publicStyles/error.css"
 import VerifyLoader from "../components/loaders/VerifyLoader";
 import { setAlertModal } from "../redux/slices/modalSlice";
 import { verifyEmail } from "../services/onboardingService";
+import Password from "../shared/Password";
 
 
 const EmailVerification = () => {
@@ -20,7 +21,7 @@ const EmailVerification = () => {
 
     
     useEffect(() => {
-    
+    if(params?.role !== "User"){
       async function emailVerify() {
         let res = (await verifyEmail(params?.code))?.data
        console.log(res);
@@ -48,11 +49,17 @@ const EmailVerification = () => {
        
       }
 
+
       emailVerify()
+    }
 
     }, [params?.code, dispatch, history])
     
     return (
+      <>
+      {params?.role === "User" ? (
+        <Password code={params?.code}/>
+      ):(
         <section className="gauto-notfound-area section_70">
         <Container>
           <Row>
@@ -68,6 +75,9 @@ const EmailVerification = () => {
           </Row>
         </Container>
       </section>
+      )}
+       
+      </>
     );
 };
 
