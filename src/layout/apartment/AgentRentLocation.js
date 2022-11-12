@@ -1,4 +1,3 @@
-import {useEffect, useRef} from 'react';
 import { Formik, Field, Form } from "formik";
 import { lgas } from '../../mock/lgas';
 import { states } from '../../mock/state';
@@ -11,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 const AgentRentLocation = ({props}) => {
     const dispatch = useDispatch()
-    const ref = useRef(null);
+
     const location = useSelector((state) => state.apartmentListing?.location)
     const locations = useSelector((state) => state.apartmentListing?.locations)
 
@@ -30,18 +29,9 @@ const AgentRentLocation = ({props}) => {
         contactPersonEmail: location?.contactPersonEmail
       }
 
-      useEffect(() => {
-        if(ref?.current?.values?.stateId) {
-          const lga = lgas.filter((lga) => lga?.state_id == ref?.current?.values?.stateId)
-          console.log(lga);
-          dispatch(updateLocations(lga))
-        }
-      }, [ref?.current?.values?.stateId, dispatch])
-
-
     return (
-      <Formik enableReinitialize initialValues={initialValues} innerRef={ref} validationSchema={enlistLocationSchema} onSubmit={(values) => handleSubmit(values)}>
-        { ({errors,touched}) => (
+      <Formik enableReinitialize initialValues={initialValues} validationSchema={enlistLocationSchema} onSubmit={(values) => handleSubmit(values)}>
+        { ({errors,touched, setFieldValue}) => (
         <Form> 
         <Row className="gy-2">
           <Col md="6">
@@ -54,6 +44,13 @@ const AgentRentLocation = ({props}) => {
                 as="select"
                   className="form-control form-select"
                   name="stateId"
+                  // value={values?.stateId}
+                  onChange={(e)=>{
+                    const { value } = e.target;
+                    const lga = lgas.filter((lga) => lga?.state_id === value)
+                    setFieldValue("stateId", value);
+                    dispatch(updateLocations(lga))
+                  }}
                 >
                   <option label="Select an option" selected="true" disabled="disabled"  value=""></option>
                   {states?.map((state) => (
@@ -159,7 +156,7 @@ const AgentRentLocation = ({props}) => {
               </Button>
             </li>
             <li>
-            <Button color="primary" onClick={()=> {props.prev(); dispatch(updateLocation(values))}}>
+            <Button color="primary" onClick={()=> {props.prev(); dispatch(updateLocation(ref?.current?.values))}}>
               Previous
             </Button>
           </li>

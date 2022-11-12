@@ -27,16 +27,6 @@ const AgentRentDetails = () => {
     fetchPropertyDetail()
     }, [propertyId])
 
-console.log(data);
-
-    useEffect(() => {
-      const fetchPropertyDetail = async() => {
-        const res = (await propertyDetail(propertyId))?.data
-        setData(res?.result)
-      }
-
-      fetchPropertyDetail()
-      }, [propertyId])
     return (
         <>
         <Head title="Details"></Head>
@@ -52,7 +42,7 @@ console.log(data);
           </BlockHead>
 
         <Block>
-        <Rent rentDataDetail={data} propertyId={propertyId}/>
+        <Rent rentDataDetail={data} propertyId={propertyId} otherDetails={true}/>
         </Block>
         
         </Content>
