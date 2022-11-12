@@ -11,6 +11,7 @@ import AdminDashboard from "../screens/admin/AdminDashboard";
 import Apartments from "../screens/admin/Apartments";
 import AvailableApartments from "../screens/AvailableApartments";
 import CorporateList from "../screens/corporate/CorporateList";
+import AgentRentDetails from "../screens/agents/AgentRentDetails";
 
 const ProtectedRoutes = () => {
   const role = useSelector((state) => state.user?.user?.role)
@@ -23,7 +24,10 @@ const ProtectedRoutes = () => {
       <GatewayRoute path="/apartment-listing" component={ApartmentListing} roles={["Agent"]} />
       <GatewayRoute path="/apartment/:status" component={Apartments} roles={["Admin"]} />
       <GatewayRoute path="/corporate/:status" component={CorporateList} roles={["Admin"]} />
+      <GatewayRoute path="/apartmentdetails/:propertyId" component={AgentRentDetails} roles={["Agent", "Admin"]} />
+      <GatewayRoute path="/apartmentedit/:propertyId" component={AddRentApartment} roles={["Agent", "Admin"]} />
       <GatewayRoute path="/apartments" component={AvailableApartments} roles={["Corporate"]} />
+      
     </Switch> 
   );
 };

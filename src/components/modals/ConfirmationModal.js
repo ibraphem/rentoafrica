@@ -10,10 +10,11 @@ import {
 
 import { useDispatch } from "react-redux";
 import { setAlertModal, setConfirmPopUp, setLoader } from "../../redux/slices/modalSlice";
-import { approveProperty } from "../../services/propertyService";
+import { approveProperty, deleteProperty } from "../../services/propertyService";
 import { getAdminProperties } from "../../redux/slices/adminPropertySlice";
 import { approveCorporate } from "../../services/corporateService";
 import { getCorporates } from "../../redux/slices/corporateSlice";
+import { getAgentProperties } from "../../redux/slices/agentPropertySlice";
 
 const ConfirmationModal = () => {
     const confirmModal = useSelector((state) => state.modal.confirmPopUp);
@@ -41,10 +42,17 @@ const ConfirmationModal = () => {
           dispatch(getAdminProperties())
         }
 
+        if (confirmModal.type === "removeApartment") {
+          res = (await deleteProperty(confirmModal.payload))?.data;
+          dispatch(getAgentProperties())
+        }
+
         if (confirmModal.type === "approveCorporate") {
           res = (await approveCorporate(confirmModal.payload))?.data;
           dispatch(getCorporates())
         }
+
+
 
      
         dispatch(setLoader({status: false}))
@@ -71,7 +79,7 @@ const ConfirmationModal = () => {
         </ModalBody>
         <ModalFooter className="bg-light">
           <Button color="warning" size="md" onClick={closeModal}>Close</Button>
-          {confirmModal?.showActionBtn && <Button color="primary" onClick={() => handleAction()} size="md">{confirmModal.buttonText}</Button> }
+          {confirmModal?.showActionBtn && <Button color="danger" onClick={() => handleAction()} size="md">{confirmModal.buttonText}</Button> }
         </ModalFooter>
       </Modal>
     );

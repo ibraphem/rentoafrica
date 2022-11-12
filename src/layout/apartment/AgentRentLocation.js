@@ -1,7 +1,7 @@
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
+import { Formik, Field, Form } from "formik";
 import { lgas } from '../../mock/lgas';
 import { states } from '../../mock/state';
-import { useFormik } from "formik";
 import { enlistLocationSchema } from "../../utils/formValidationSchema";
 import { Row, Col, FormGroup, Button  } from "react-bootstrap";
 import { useDispatch } from 'react-redux';
@@ -11,39 +11,38 @@ import { useSelector } from 'react-redux';
 
 const AgentRentLocation = ({props}) => {
     const dispatch = useDispatch()
+    const ref = useRef(null);
     const location = useSelector((state) => state.apartmentListing?.location)
     const locations = useSelector((state) => state.apartmentListing?.locations)
 
-      const onSubmit = async (values) => {
+
+      const handleSubmit = async (values) => {
         dispatch(updateLocation(values))
         props.next()
       };
     
-      const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
-        initialValues: {
-          stateId: location?.stateId,
-          locationId: location?.locationId,
-          address: location?.address,
-          contactPersonName: location?.contactPersonName,
-          contactPersonPhoneNo: location?.contactPersonPhoneNo,
-          contactPersonEmail: location?.contactPersonEmail
-        },
-        validationSchema: enlistLocationSchema,
-        onSubmit,
-      });
+      const   initialValues = {
+        stateId: location?.stateId,
+        locationId: location?.locationId,
+        address: location?.address,
+        contactPersonName: location?.contactPersonName,
+        contactPersonPhoneNo: location?.contactPersonPhoneNo,
+        contactPersonEmail: location?.contactPersonEmail
+      }
 
       useEffect(() => {
-        if(values?.stateId?.length > 0) {
-          const lga = lgas.filter((lga) => lga?.state_id === values?.stateId)
+        if(ref?.current?.values?.stateId) {
+          const lga = lgas.filter((lga) => lga?.state_id == ref?.current?.values?.stateId)
+          console.log(lga);
           dispatch(updateLocations(lga))
         }
-      }, [values?.stateId, dispatch])
+      }, [ref?.current?.values?.stateId, dispatch])
 
-      // console.log(values);
-    
 
     return (
-        <form className="content clearfix" onSubmit={ handleSubmit} autoComplete="off"> 
+      <Formik enableReinitialize initialValues={initialValues} innerRef={ref} validationSchema={enlistLocationSchema} onSubmit={(values) => handleSubmit(values)}>
+        { ({errors,touched}) => (
+        <Form> 
         <Row className="gy-2">
           <Col md="6">
             <FormGroup>
@@ -51,17 +50,16 @@ const AgentRentLocation = ({props}) => {
                 State
               </label>
               <div className="form-control-wrap">
-                <select
+                <Field
+                as="select"
                   className="form-control form-select"
                   name="stateId"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
                 >
                   <option label="Select an option" selected="true" disabled="disabled"  value=""></option>
                   {states?.map((state) => (
                     <option label={state?.name} value={state?.id} key={state?.id} selected={state?.id === location?.stateId }></option>
                   ))}
-                </select>
+                </Field>
                 {errors.stateId  && touched.stateId && <span className="invalid">{errors.stateId}</span>}
               </div>
             </FormGroup>
@@ -72,17 +70,15 @@ const AgentRentLocation = ({props}) => {
                 Location
               </label>
               <div className="form-control-wrap">
-                <select
+                <Field as="select"
                   className="form-control form-select"
                   name="locationId" 
-                  onChange={handleChange}
-                  onBlur={handleBlur}
                 >
                   <option label="Select an Option" selected="true" disabled="disabled" value=""></option>
                   {locations?.map((lga) => (
                     <option label={lga?.name} value={lga?.id} key={lga?.id} selected={lga?.id === location?.locationId }></option>
                   ))}
-                </select>
+                </Field>
                 {errors.locationId && touched.locationId  && <span className="invalid">{errors?.locationId}</span>}
               </div>
             </FormGroup>
@@ -94,14 +90,10 @@ const AgentRentLocation = ({props}) => {
                 Full Address
               </label>
               <div className="form-control-wrap">
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   name="address"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  placeholder="Enter detailed address"
-                  defaultValue={location?.address}
                 />
                 {errors.address && touched.address &&  <span className="invalid">{errors?.address}</span>}
               </div>
@@ -114,14 +106,11 @@ const AgentRentLocation = ({props}) => {
                 Contact Person Name
               </label>
               <div className="form-control-wrap">
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   name="contactPersonName"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
                   placeholder="Landlord/Care-Taker's/Property Manager's name"
-                  defaultValue={location?.contactPersonName}
                 />
                 {errors.contactPersonName && touched.contactPersonName &&  <span className="invalid">{errors?.contactPersonName}</span>}
               </div>
@@ -134,13 +123,10 @@ const AgentRentLocation = ({props}) => {
                 Contact Person Phone Number
               </label>
               <div className="form-control-wrap">
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   name="contactPersonPhoneNo"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  defaultValue={location?.contactPersonPhoneNo}
                   placeholder="i.e Landlord, care-taker or facility manager contact"
                 />
                 {errors.contactPersonPhoneNo && touched.contactPersonPhoneNo &&  <span className="invalid">{errors?.contactPersonPhoneNo}</span>}
@@ -154,14 +140,11 @@ const AgentRentLocation = ({props}) => {
                 Contact Person Email (Optional)
               </label>
               <div className="form-control-wrap">
-                <input
+                <Field
                   type="text"
                   className="form-control"
                   name="contactPersonEmail"
-                  onChange={handleChange}
-                  onBlur={handleBlur}
                   placeholder="i.e Landlord, care-taker or facility manager contact"
-                  defaultValue={location?.contactPersonEmail}
                 />
                 {errors.contactPersonEmail && touched.contactPersonEmail &&  <span className="invalid">{errors?.contactPersonEmail}</span>}
               </div>
@@ -182,7 +165,9 @@ const AgentRentLocation = ({props}) => {
           </li>
           </ul>
         </div>
-      </form>
+      </Form>
+       )}
+      </Formik>
     );
 };
 

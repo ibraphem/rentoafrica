@@ -5,6 +5,14 @@ export const createProperty = async (payload) => {
     return await httpRequest(controllers.propertyController + "/Create", "post", payload);
   };
 
+  export const editProperty = async (payload) => {
+    return await httpRequest(controllers.propertyController + "/edit", "put", payload);
+  };
+
+  export const deleteProperty = async (id) => {
+    return await httpRequest(controllers.propertyController + "/delete/" + id, "delete");
+  };
+
 export const approveProperty = async (id) => {
   return await httpRequest(controllers.backOfficeController + "/Property/Approve/" + id);
 };

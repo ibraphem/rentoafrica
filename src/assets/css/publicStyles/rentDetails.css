@@ -78,7 +78,8 @@
 }
 
 .car-rating {
-  display: inline-block;
+  display: block;
+  color: #333;
 }
 
 .car-rating ul {
@@ -261,6 +262,28 @@ input[type="radio"]:checked ~ label {
 
 .action-btn a.gauto-btn:hover {
   color: #fff;
+}
+
+.order-summury-box {
+  padding: 30px;
+  background: #f4f4f5 none repeat scroll 0 0;
+}
+
+.order-summury-box table {
+  width: 100%;
+}
+
+.order-summury-box table tr {
+  border-bottom: 1px solid #ddd;
+}
+
+.order-summury-box table tr:last-child {
+  border-bottom: 0px solid #ddd;
+}
+
+.order-summury-box table td {
+  padding: 10px 0;
+  color: #001238;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {

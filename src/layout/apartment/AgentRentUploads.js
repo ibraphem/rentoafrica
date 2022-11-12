@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { Col, Row, Button } from "reactstrap";
 import { removePropertyPhoto, updateDefaultPhoto, updateDetails, updateLocation, updatePropertyPhotos } from "../../redux/slices/apartmentListingSlice";
 import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
-import { createProperty } from "../../services/propertyService";
+import { createProperty, editProperty } from "../../services/propertyService";
 import {  formatImage } from "../../utils/format";
 
 const AgentRentUploads = ({ props }) => {
@@ -13,6 +13,9 @@ const AgentRentUploads = ({ props }) => {
   const location = useSelector((state) => state.apartmentListing?.location)
   const defaultPhoto = useSelector((state) => state.apartmentListing?.defaultPhoto);
   const propertyPhotos = useSelector((state) => state.apartmentListing?.propertyPhotos);
+  const propertyId = useSelector((state) => state.apartmentListing?.propertyId);
+
+  console.log(propertyPhotos[0]);
 
 
   const handleProfileImg = (acceptedFiles) => {
@@ -48,7 +51,7 @@ const AgentRentUploads = ({ props }) => {
       return;
     }
 
-    const payload = {
+    let payload = {
       propertyName: details?.propertyName,
       propertyAmount: Number(details?.propertyAmount),
       description: details?.description,
@@ -65,9 +68,13 @@ const AgentRentUploads = ({ props }) => {
       propertyPhotos: propertyPhotos
     }
 
+    let res = null
 
-    const res = (await createProperty(payload))?.data
-    console.log(res);
+    if(propertyId) {
+      res = (await editProperty({...payload, propertyId: propertyId, isActive: true}))?.data
+    }else{
+      res = (await createProperty(payload))?.data
+    }
 
     dispatch(setLoader({status: false}))
     if(res) {

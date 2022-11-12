@@ -9,7 +9,8 @@ const GatewayRoute = ({ component: Component, roles, ...rest }) => {
     const user = useSelector((state) => state.user?.user)
     const dispatch = useDispatch()
 
-    console.log(roles?.includes(user?.role));
+    // console.log(roles?.includes(user?.role));
+    console.log(user?.role);
 
     return (
         <Route exact {...rest} render={props => {
