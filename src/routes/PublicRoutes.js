@@ -9,7 +9,7 @@ import RentDetail from "../screens/RentDetail";
 import EmailVerification from "../screens/EmailVerification";
 import { useSelector } from "react-redux";
 import ForgotPassword from "../screens/ForgotPassword";
-import Password from "../shared/Password";
+
 
 
 const PublicRoutes = () => {

@@ -57,7 +57,7 @@ const AgentRentDetails = ({props}) => {
                     label={apartment?.text}
                     value={apartment?.value}
                     key={apartment?.value}
-                    selected={apartment?.value == details?.propertyType}
+                    selected={apartment?.value === details?.propertyType.toString()}
                   ></option>
                 ))}
               </Field>
@@ -82,7 +82,7 @@ const AgentRentDetails = ({props}) => {
                     label={apartment?.text}
                     key={apartment?.value}
                     value={apartment?.value}
-                    selected={apartment?.value == details?.propertyCondition}
+                    selected={apartment?.value === details?.propertyCondition?.toString()}
                   ></option>
                 ))}
               </Field>
@@ -109,7 +109,7 @@ const AgentRentDetails = ({props}) => {
                     label={apartment?.type}
                     value={apartment?.id}
                     key={apartment?.id}
-                    selected={apartment?.id == details?.furnishedStatus}
+                    selected={apartment?.id === details?.furnishedStatus?.toString()}
                   ></option>
                 ))}
               </Field>
@@ -136,7 +136,7 @@ const AgentRentDetails = ({props}) => {
                     label={apartment?.type}
                     value={apartment?.id}
                     key={apartment?.id}
-                    selected={apartment?.id == details?.toilets}
+                    selected={apartment?.id === details?.toilets?.toString()}
                   ></option>
                 ))}
               </Field>

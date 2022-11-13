@@ -53,7 +53,7 @@ const EmailVerification = () => {
       emailVerify()
     }
 
-    }, [params?.code, dispatch, history])
+    }, [params?.code, dispatch, history, params?.role])
     
     return (
       <>

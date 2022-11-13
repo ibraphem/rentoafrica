@@ -143,16 +143,7 @@ const FlexiblePayRent = ({rentDataDetail}) => {
             />
           </p>
         </Col>
-        <Col lg={6} md={12} className="mb-2">
-          <p>
-            <label>Partner Company</label>
-            <input
-              type="text"
-              // onChange={(e) => setPartnerCompany(e.target.value)}
-              placeholder="Lopo Inc."
-            />
-          </p>
-        </Col>
+   
 
         <Col lg={12} md={12} className="mt-2">
           <button type="submit" class="btn btn-danger btn-lg btn-block">
