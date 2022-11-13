@@ -54,7 +54,7 @@ const AgentRentLocation = ({props}) => {
                 >
                   <option label="Select an option" selected="true" disabled="disabled"  value=""></option>
                   {states?.map((state) => (
-                    <option label={state?.name} value={state?.id} key={state?.id} selected={state?.id === location?.stateId }></option>
+                    <option label={state?.name} value={state?.id} key={state?.id} selected={state?.id === location?.stateId?.toString() }></option>
                   ))}
                 </Field>
                 {errors.stateId  && touched.stateId && <span className="invalid">{errors.stateId}</span>}
@@ -73,7 +73,7 @@ const AgentRentLocation = ({props}) => {
                 >
                   <option label="Select an Option" selected="true" disabled="disabled" value=""></option>
                   {locations?.map((lga) => (
-                    <option label={lga?.name} value={lga?.id} key={lga?.id} selected={lga?.id === location?.locationId }></option>
+                    <option label={lga?.name} value={lga?.id} key={lga?.id} selected={lga?.id === location?.locationId?.toString() }></option>
                   ))}
                 </Field>
                 {errors.locationId && touched.locationId  && <span className="invalid">{errors?.locationId}</span>}

@@ -1,11 +1,12 @@
 import { Row, Col } from "react-bootstrap";
 import { useFormik } from "formik";
-import { fullPayValidationSchema } from "../../utils/formValidationSchema";
 import { useDispatch } from "react-redux";
 import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
 import { onboardTenant } from "../../services/onboardingService";
 import CustomToolTip from "../misc/CustomToolTip"
 import { amountFormat } from "../../utils/format";
+import { aesEncryption } from "../../utils/encrypt";
+import * as yup from "yup";
 
 const FlexiblePayRent = ({rentDataDetail}) => {
   const dispatch = useDispatch();
@@ -16,10 +17,12 @@ const FlexiblePayRent = ({rentDataDetail}) => {
       email: values?.email,
       phoneNo: values?.phoneNo,
       profileName: `${values?.firstName} ${values?.lastName}`,
-      initialPayment: Number(rentDataDetail?.propertyAmount),
+      initialPayment: Number(values?.initialPayment),
+      bvnNumber: aesEncryption(values?.bvnNumber),
       propertyId: rentDataDetail?.propertyId,
     };
 
+    console.log(payload);
     const res = (await onboardTenant(payload))?.data;
 
     dispatch(setLoader({ status: false }));
@@ -33,6 +36,29 @@ const FlexiblePayRent = ({rentDataDetail}) => {
     }
   };
 
+  const flexiblePayValidationSchema = yup.object().shape({
+    firstName: yup.string().required("First name is required"),
+    lastName: yup.string().required("Last name is required"),
+    phoneNo: yup
+      .string()
+      .required("Phone Number is required")
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(11, "Must be exactly 11 digits")
+      .max(11, "Must be exactly 11 digits"),
+    email: yup.string().email("Please enter a valid email").required("Email is required"),
+    bvnNumber: yup
+      .string()
+      .required("BVN Number is required")
+      .matches(/^[0-9]+$/, "Must be only digits")
+      .min(11, "Must be exactly 11 digits")
+      .max(11, "Must be exactly 11 digits"),
+      initialPayment: yup
+      .number().required("Enter Initial payment")
+      .moreThan(rentDataDetail?.propertyAmount/2 - 1, `Initial payment can not be less than \u20A6${amountFormat(rentDataDetail?.propertyAmount/2)}`)
+      .lessThan(rentDataDetail?.propertyAmount + 1, `Initial payment can not be greater than \u20A6${amountFormat(rentDataDetail?.propertyAmount)}`)
+      ,
+  });
+
   const { values, errors, touched, handleBlur, handleChange, handleSubmit } = useFormik({
     initialValues: {
       firstName: "",
@@ -42,7 +68,7 @@ const FlexiblePayRent = ({rentDataDetail}) => {
       bvnNumber: "",
       initialPayment: ""
     },
-    validationSchema: fullPayValidationSchema,
+    validationSchema: flexiblePayValidationSchema,
     onSubmit,
   });
 
@@ -122,14 +148,15 @@ const FlexiblePayRent = ({rentDataDetail}) => {
               </CustomToolTip>
             </label>
             <input
-              required
               value={values.initialPayment}
               onChange={handleChange}
+              onBlur={handleBlur}
               id="initialPayment"
               placeholder={`\u20A6${amountFormat(rentDataDetail?.propertyAmount / 2)} - \u20A6${amountFormat(
                 rentDataDetail?.propertyAmount
               )}`}
             />
+            {errors.initialPayment && touched.initialPayment && <span className="invalid text-danger">{errors?.initialPayment}</span>}
           </p>
         </Col>
 
@@ -139,8 +166,10 @@ const FlexiblePayRent = ({rentDataDetail}) => {
             <input
               value={values.bvnNumber}
               onChange={handleChange}
+              onBlur={handleBlur}
               id="bvnNumber"
             />
+            {errors.bvnNumber && touched.bvnNumber && <span className="invalid text-danger">{errors?.bvnNumber}</span>}
           </p>
         </Col>
    

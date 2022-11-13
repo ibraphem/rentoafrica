@@ -57,7 +57,7 @@ const AgentRentDetails = ({props}) => {
                     label={apartment?.text}
                     value={apartment?.value}
                     key={apartment?.value}
-                    selected={apartment?.value === details?.propertyType.toString()}
+                    selected={apartment?.value === details?.propertyType?.toString()}
                   ></option>
                 ))}
               </Field>
