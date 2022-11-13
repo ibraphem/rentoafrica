@@ -31,7 +31,7 @@ const AgentRentLocation = ({props}) => {
 
     return (
       <Formik enableReinitialize initialValues={initialValues} validationSchema={enlistLocationSchema} onSubmit={(values) => handleSubmit(values)}>
-        { ({errors,touched, setFieldValue}) => (
+        { ({errors,touched, values, setFieldValue}) => (
         <Form> 
         <Row className="gy-2">
           <Col md="6">
@@ -156,7 +156,7 @@ const AgentRentLocation = ({props}) => {
               </Button>
             </li>
             <li>
-            <Button color="primary" onClick={()=> {props.prev(); dispatch(updateLocation(ref?.current?.values))}}>
+            <Button color="primary" onClick={()=> {props.prev(); dispatch(updateLocation(values))}}>
               Previous
             </Button>
           </li>

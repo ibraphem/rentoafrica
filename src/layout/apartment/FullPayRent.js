@@ -1,5 +1,5 @@
 import { Row, Col } from "react-bootstrap";
-import { Formik, Field, Form } from "formik";
+import { useFormik } from "formik";
 import { fullPayValidationSchema } from "../../utils/formValidationSchema";
 import { useDispatch } from "react-redux";
 import { setAlertModal, setLoader } from "../../redux/slices/modalSlice";
@@ -10,7 +10,7 @@ const FullPayRent = ({rentDataDetail}) => {
   const dispatch = useDispatch()
 
 
-  const handleSubmit = async(values, resetForm) => {
+  const onSubmit = async(values, {resetForm}) => {
     dispatch(setLoader({ status: true }));
     const payload = {
       email: values?.email,
@@ -20,7 +20,6 @@ const FullPayRent = ({rentDataDetail}) => {
       propertyId: rentDataDetail?.propertyId,
     };
 
-    // console.log(payload);
 
     const res = (await onboardTenant(payload))?.data;
 
@@ -34,22 +33,43 @@ const FullPayRent = ({rentDataDetail}) => {
 
 
   };
-  
-  const initialValues = {
-    firstName: "",
+
+  const {
+    values,
+    errors,
+    touched,
+    handleBlur,
+    handleChange,
+    handleSubmit,
+  } = useFormik({
+    initialValues: {
+      firstName: "",
     lastName: "",
     email: "",
     phoneNo: "",
-  };
+    },
+    validationSchema: fullPayValidationSchema,
+    onSubmit,
+  });
+  
+
   return (
-    <Formik enableReinitialize initialValues={initialValues}  validationSchema={fullPayValidationSchema} onSubmit={(values) => handleSubmit(values)}>
-      {({ errors, touched, values }) => (
-        <Form>
+   
+        <form onSubmit={handleSubmit}>
           <Row>
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>First Name</label>
-                <Field type="text" placeholder="John" name="firstName" value={values.firstName || ''} />
+                <input
+                    value={values.firstName}
+                    onChange={handleChange}
+                    id="firstName"
+                    placeholder="John"
+                    onBlur={handleBlur}
+                    className={
+                      errors.firstName && touched.firstName ? "input-error" : ""
+                    }
+                  />
                 {errors.firstName && touched.firstName && <span className="invalid text-danger">{errors?.firstName}</span>}
               </p>
            
@@ -57,21 +77,49 @@ const FullPayRent = ({rentDataDetail}) => {
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>Last Name</label>
-                <Field type="text" placeholder="Doe" name="lastName" value={values.lastName || ''}/>
+                <input
+                    value={values.lastName}
+                    onChange={handleChange}
+                    id="lastName"
+                    placeholder="Doe"
+                    onBlur={handleBlur}
+                    className={
+                      errors.lastName && touched.lastName ? "input-error" : ""
+                    }
+                  />
                 {errors.lastName && touched.lastName && <span className="invalid text-danger">{errors?.lastName}</span>}
               </p>
             </Col>
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>Email</label>
-                <Field type="text" placeholder="somebody@example.com" name="email"  value={values.email || ''}/>
+                <input
+                    value={values.email}
+                    onChange={handleChange}
+                    id="email"
+                    type="email"
+                    placeholder="somebody@example.com"
+                    onBlur={handleBlur}
+                    className={
+                      errors.email && touched.email ? "input-error" : ""
+                    }
+                  />
                 {errors.email && touched.email && <span className="invalid text-danger">{errors?.email}</span>}
               </p>
             </Col>
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>Phone Number</label>
-                <Field type="text" placeholder="080xxxxxxxxx" name="phoneNo" value={values.phoneNo || ''} />
+                <input
+                    value={values.phoneNo}
+                    onChange={handleChange}
+                    id="phoneNo"
+                    placeholder="070xxxxxxxxx"
+                    onBlur={handleBlur}
+                    className={
+                      errors.phoneNo && touched.phoneNo ? "input-error" : ""
+                    }
+                  />
                 {errors.phoneNo && touched.phoneNo && <span className="invalid text-danger">{errors?.phoneNo}</span>}
               </p>
             </Col>
@@ -82,9 +130,8 @@ const FullPayRent = ({rentDataDetail}) => {
               </button>
             </Col>
           </Row>
-        </Form>
-      )}
-    </Formik>
+        </form>
+
   );
 };
 
