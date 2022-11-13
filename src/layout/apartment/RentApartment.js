@@ -1,6 +1,7 @@
 import { Container, Row, Col } from "react-bootstrap";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import FlexiblePayRent from "./FlexiblePayRent";
 // import CustomToolTip from "../../layout/misc/CustomToolTip";
 // import Alerts from "../../layout/misc/Alerts";
 // import { validatePhoneNumber } from "../../utils/validate";
@@ -140,7 +141,7 @@ const RentApartment = ({ rentDataDetail }) => {
                   </div>
                   </Tab>
                   <Tab eventKey="corporate" title="Flexible Rent Pay">
-                    <p>Flexible</p>
+                    <FlexiblePayRent rentDataDetail={rentDataDetail}/>
                   </Tab>
                
                 </Tabs>

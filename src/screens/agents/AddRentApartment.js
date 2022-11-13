@@ -104,9 +104,7 @@ const AddRentApartment = () => {
         fetchPropertyDetail()
       }
 
-      }, [propertyId])
-
-    console.log(propertyId);
+      }, [propertyId, dispatch])
 
   return (
     <>
