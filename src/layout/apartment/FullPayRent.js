@@ -42,14 +42,14 @@ const FullPayRent = ({rentDataDetail}) => {
     phoneNo: "",
   };
   return (
-    <Formik enableReinitialize initialValues={initialValues}  validationSchema={fullPayValidationSchema} onSubmit={(values, resetForm) => handleSubmit(values)}>
-      {({ errors, touched }) => (
+    <Formik enableReinitialize initialValues={initialValues}  validationSchema={fullPayValidationSchema} onSubmit={(values) => handleSubmit(values)}>
+      {({ errors, touched, values }) => (
         <Form>
           <Row>
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>First Name</label>
-                <Field type="text" placeholder="John" name="firstName" />
+                <Field type="text" placeholder="John" name="firstName" value={values.firstName || ''} />
                 {errors.firstName && touched.firstName && <span className="invalid text-danger">{errors?.firstName}</span>}
               </p>
            
@@ -57,21 +57,21 @@ const FullPayRent = ({rentDataDetail}) => {
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>Last Name</label>
-                <Field type="text" placeholder="Doe" name="lastName" />
+                <Field type="text" placeholder="Doe" name="lastName" value={values.lastName || ''}/>
                 {errors.lastName && touched.lastName && <span className="invalid text-danger">{errors?.lastName}</span>}
               </p>
             </Col>
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>Email</label>
-                <Field type="text" placeholder="somebody@example.com" name="email" />
+                <Field type="text" placeholder="somebody@example.com" name="email"  value={values.email || ''}/>
                 {errors.email && touched.email && <span className="invalid text-danger">{errors?.email}</span>}
               </p>
             </Col>
             <Col lg={6} md={12} className="mb-2">
               <p>
                 <label>Phone Number</label>
-                <Field type="text" placeholder="080xxxxxxxxx" name="phoneNo" />
+                <Field type="text" placeholder="080xxxxxxxxx" name="phoneNo" value={values.phoneNo || ''} />
                 {errors.phoneNo && touched.phoneNo && <span className="invalid text-danger">{errors?.phoneNo}</span>}
               </p>
             </Col>
