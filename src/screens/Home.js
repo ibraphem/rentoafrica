@@ -17,9 +17,9 @@ const Home = () => {
         dispatch(getProperties())
        }, [params, dispatch])
 
-       const loadMore = () => {
-        dispatch(updatePagination(data?.params?.pageNumber + 1))
-       }
+    //    const loadMore = () => {
+    //     dispatch(updatePagination(data?.params?.pageNumber + 1))
+    //    }
 
     return (
         <>
