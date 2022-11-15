@@ -4,7 +4,7 @@ import PublicHeader from '../layout/header/PublicHeader';
 import Properties from '../layout/apartment/Properties';
 import "../assets/css/publicStyles/app.css"
 import { useDispatch } from 'react-redux';
-import { getProperties, updatePagination } from '../redux/slices/propertyListingSlice';
+import { getProperties } from '../redux/slices/propertyListingSlice';
 import { useSelector } from 'react-redux';
 
 const Home = () => {
