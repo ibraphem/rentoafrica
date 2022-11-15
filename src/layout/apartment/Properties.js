@@ -3,7 +3,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import CardLoader from "../../components/loaders/CardLoader";
 import PropertyCard from "./PropertyCard";
 
-const Properties = ({ rentData, title, isfavScreen, loadMore }) => {
+const Properties = ({ rentData, title, isfavScreen, cancel, loadMore }) => {
   const shadow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
@@ -18,10 +18,10 @@ const Properties = ({ rentData, title, isfavScreen, loadMore }) => {
           </Col>
         </Row>
         <Row id="scrollableDiv">
-          {rentData?.data?.length > 0 ? (
-             rentData?.data?.map((data) => (
+          {rentData?.length > 0 ? (
+             rentData?.map((data) => (
               <Col lg={4} key={data?.propertyId}>
-                <PropertyCard data={data} isfavScreen={isfavScreen} />
+                <PropertyCard data={data} isfavScreen={isfavScreen} cancel={cancel} />
               </Col>
             ))
           ): 

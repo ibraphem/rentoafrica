@@ -11,7 +11,7 @@ const Home = () => {
     const dispatch = useDispatch()
     const data = useSelector((state) => state.properties)
     const params = data?.params
-    const result = data?.properties?.data?.result
+    const result = data?.properties?.data?.result?.data
 
     useEffect(() => {
         dispatch(getProperties())
@@ -25,7 +25,7 @@ const Home = () => {
         <>
             <PublicHeader/>
             <Hero/>
-            <Properties rentData={result} title="Apartment" loadMore={loadMore}/>
+            <Properties rentData={result} title="Apartment"/>
         </>
     );
 };

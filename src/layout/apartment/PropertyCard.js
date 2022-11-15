@@ -4,8 +4,9 @@ import { Link } from "react-router-dom";
 import { addToFavoriteRent, removeFromFavoriteRent } from "../../redux/slices/favouriteRentSlice";
 import { amountFormat } from "../../utils/format";
 import "../../assets/css/publicStyles/propertyCard.css"
+import { setConfirmPopUp } from "../../redux/slices/modalSlice";
 
-const PropertyCard = ({data, isfavScreen = false}) => {
+const PropertyCard = ({data, isfavScreen = false, cancel}) => {
   const dispatch = useDispatch()
   const favRent = useSelector((state) => state?.favoriteRent?.rent);
 
@@ -13,6 +14,20 @@ const PropertyCard = ({data, isfavScreen = false}) => {
   const checkIsFavRent = (propertyId) => {
     const isFavRent = favRent?.some((fav)=> fav.id === propertyId)
     return isFavRent
+  }
+
+  const cancelRent = (id, title) => {
+    dispatch(
+      setConfirmPopUp({
+        status: true,
+        type: "cancelRentRequest",
+        title: "Cancel Rent Request",
+        desc: `Are you sure you want to cancel your rent request for this property (${title})? By cancelling, you will no longer be consider for this property.`,
+        payload: id,
+        buttonText: "Cancel",
+        showActionBtn: true,
+      })
+    );
   }
   
     return (
@@ -47,7 +62,7 @@ const PropertyCard = ({data, isfavScreen = false}) => {
             </li>
           </ul>
           </Link>
-          <div className={isfavScreen ? "offer-action2 offer-action" : "offer-action"}>
+          <div className={isfavScreen || cancel ? "offer-action2 offer-action" : "offer-action"}>
             <Link
               to={`/details/${data?.propertyId}`}
               className="offer-btn-1"
@@ -61,7 +76,14 @@ const PropertyCard = ({data, isfavScreen = false}) => {
             >
                Remove
             </Link>
-          ): (
+          ): cancel ? (
+            <Link 
+              className="offer-btn-2"
+              onClick={() => cancelRent(data?.propertyId, data?.propertyName)}
+            >
+               Cancel
+            </Link>
+          ) : (
             <Link
             className={checkIsFavRent(data?.propertyId) ? "offer-btn-2 disabled-link" : "offer-btn-2"}
             onClick={() => dispatch(addToFavoriteRent(data))} 

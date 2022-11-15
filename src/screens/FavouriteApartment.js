@@ -19,7 +19,7 @@ const FavouriteApartment = () => {
             {favRent?.length > 0 ? (
                 <>
                       <Properties rentData={favRent} title="Your Favorites" isfavScreen={true}/>
-                      <Properties rentData={result} title="Related Properties" />
+                      {/* <Properties rentData={result} title="Related Properties" /> */}
                       </>
             ): (
                 <Error errorTitle="No Favorites was found" errorDesc="We couldn't do find any property on your list of favorites. Browse through our enlisted property lists and and some to favorite."/>

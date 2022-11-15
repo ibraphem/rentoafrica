@@ -90,7 +90,7 @@ const ApartmentTable = ({
       <div className="card-inner position-relative card-tools-toggle">
         <div className="card-title-group">
           <div className="card-tools">
-            {role === "Agent" && (
+            {role === "User" && (
               <div className="form-inline flex-nowrap gx-3">
                 <div className="btn-wrap">
                   <Button color="primary">
@@ -184,7 +184,7 @@ const ApartmentTable = ({
                     </Badge>
                   </DataTableRow>
 
-                  {role === "Agent" ? (
+                  {role === "User" ? (
                     <DataTableRow className="nk-tb-col-action">
                       <UncontrolledDropdown>
                         <DropdownToggle tag="a" className="text-soft dropdown-toggle btn btn-sm btn-icon btn-trigger">

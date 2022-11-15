@@ -1,35 +1,47 @@
 const menu = {
-  Agent: [
+  User: [
     {
       icon: "home",
-      text: "Homepage",
-      link: "/",
-    },
-    {
-      icon: "brick-fill",
       text: "Dashboad",
       link: "/dashboard",
     },
     {
+      heading: "Rent",
+    },
+    {
       icon: "building",
-      text: "Listings",
+      text: "My Rent Request",
+      link: "/rent-request",
+    },
+    {
+      icon: "briefcase",
+      text: "Houses For Rent",
+      link: "/apartments",
+    },
+    {
+      heading: "Earn",
+    },
+    {
+      icon: "plus",
+      text: "List an Apartment",
+      link: "/new-apartment",
+    },
+    {
+      icon: "building",
+      text: "My Listings",
       link: "/apartment-listing",
     },
     {
       icon: "briefcase",
-      text: "Transactions",
+      text: "Transaction History",
       link: "/transactions",
     },
-    {
-      icon: "plus",
-      text: "Add New",
-      link: "/new-apartment",
-    },
+
   ],
 
   Admin: [
     {
-      icon: "brick-fill",
+      icon: "home",
       text: "Dashboad",
       link: "/dashboard",
     },

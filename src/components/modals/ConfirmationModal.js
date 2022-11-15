@@ -15,6 +15,8 @@ import { getAdminProperties } from "../../redux/slices/adminPropertySlice";
 import { approveCorporate } from "../../services/corporateService";
 import { getCorporates } from "../../redux/slices/corporateSlice";
 import { getAgentProperties } from "../../redux/slices/agentPropertySlice";
+import { deleteRent } from "../../services/rentService";
+import { getRentRequest } from "../../redux/slices/rentRequestSlice";
 
 const ConfirmationModal = () => {
     const confirmModal = useSelector((state) => state.modal.confirmPopUp);
@@ -50,6 +52,11 @@ const ConfirmationModal = () => {
         if (confirmModal.type === "approveCorporate") {
           res = (await approveCorporate(confirmModal.payload))?.data;
           dispatch(getCorporates())
+        }
+
+        if (confirmModal.type === "cancelRentRequest") {
+          res = (await deleteRent(confirmModal.payload))?.data;
+          dispatch(getRentRequest())
         }
 
 

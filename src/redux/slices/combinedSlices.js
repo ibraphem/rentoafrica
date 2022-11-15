@@ -7,6 +7,7 @@ import favouriteRentSlice from './favouriteRentSlice';
 import modalSlice from './modalSlice';
 import pageSlice from './pageSlice';
 import propertyListingSlice from './propertyListingSlice';
+import rentRequestSlice from './rentRequestSlice';
 import userSlice from './userSlice';
 
 
@@ -19,7 +20,8 @@ const combinedSlices = combineReducers({
     agentProperties: agentPropertySlice,
     adminProperties: adminPropertySlice,
     properties: propertyListingSlice,
-    corporates: corporateSlice
+    corporates: corporateSlice,
+    rentRequest: rentRequestSlice
 
 });
 

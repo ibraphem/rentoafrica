@@ -7,4 +7,5 @@ export const controllers = {
     backOfficeController: `${BASE_URL}/backoffice`,
     listingController: `${BASE_URL}/Listing`,
     corporateController: `${BASE_URL}/Corporate`,
+    rentController: `${BASE_URL}/Rent`,
 }

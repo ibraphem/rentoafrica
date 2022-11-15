@@ -5,7 +5,7 @@ import httpRequest from "../../utils/httpRequest";
 
 const initialState = {
   params: {
-    pageSize: 10,
+    pageSize: 12,
     pageNumber: 1,
   },
   loading: false,
