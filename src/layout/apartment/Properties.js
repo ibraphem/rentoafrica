@@ -1,35 +1,32 @@
 import React from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Col, Row } from "react-bootstrap";
 import CardLoader from "../../components/loaders/CardLoader";
+import Error from "../error/Error";
 import PropertyCard from "./PropertyCard";
 
-const Properties = ({ rentData, title, isfavScreen, cancel, loadMore }) => {
-  const shadow = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const Properties = ({ rentData, title, isfavScreen, cancel, loading }) => {
+  const shadow = [1, 2, 3, 4, 5, 6];
 
 
   return (
-    <section className="gauto-offers-area section_70">
-      <Container>
-        <Row>
-          <Col md={12}>
-            <div className="site-heading">
-              <h2>{title}</h2>
-            </div>
-          </Col>
-        </Row>
+   
+        <>
         <Row id="scrollableDiv">
-          {rentData?.length > 0 ? (
-             rentData?.map((data) => (
-              <Col lg={4} key={data?.propertyId}>
-                <PropertyCard data={data} isfavScreen={isfavScreen} cancel={cancel} />
-              </Col>
-            ))
-          ): 
-          (
-            shadow?.map((shad)=> (
+          {rentData?.length < 1 && loading ? (
+             shadow?.map((shad)=> (
               <Col lg={4} key={shad}>
               <CardLoader/>
             </Col>
+            ))
+          ): rentData?.length < 1 && !loading ? (
+            <Error errorTitle="No Apartment was found" errorDesc="We couldn't do find any property on your rent request list. Browse through our enlisted properties and apply for rent."/>
+          ):
+          (
+          
+            rentData?.map((data) => (
+              <Col lg={4} key={data?.propertyId}>
+                <PropertyCard data={data} isfavScreen={isfavScreen} cancel={cancel} />
+              </Col>
             ))
             
           )
@@ -37,8 +34,8 @@ const Properties = ({ rentData, title, isfavScreen, cancel, loadMore }) => {
            
         
         </Row>
-      </Container>
-    </section>
+        </>
+     
   );
 };
 

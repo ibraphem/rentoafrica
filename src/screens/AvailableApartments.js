@@ -1,11 +1,18 @@
 import {useEffect} from 'react';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
-import {Block } from '../components/Component';
 import Properties from '../layout/apartment/Properties';
 import Content from '../layout/content/Content';
-import Head from '../layout/head/Head';
 import { getProperties } from '../redux/slices/propertyListingSlice';
+import Head from '../layout/head/Head';
+import {
+  BlockBetween,
+  BlockHead,
+  BlockHeadContent,
+  BlockTitle,
+  Block
+} from "../components/Component";
+
 
 
 
@@ -22,13 +29,26 @@ const AvailableApartments = () => {
 
     return (
         <>
-        <Head title="Apartments for rents"></Head>
+        <Head title="Apartments for rent"></Head>
         <Content>
-            <Block>
-            <Properties rentData={result} title="Apartment For Rent"/>
+          <BlockHead size="sm">
+            <BlockBetween>
+              <BlockHeadContent>
+                <BlockTitle tag="h3" page>
+                  Apartments For Rent
+                </BlockTitle>
+              </BlockHeadContent>
+            </BlockBetween>
+          </BlockHead>
+  
+          <Block>
+              <Block>
+              <Properties rentData={result} loading={data?.loading}/>
+              </Block>
             </Block>
+        
         </Content>
-        </>
+      </>
  
     );
 };

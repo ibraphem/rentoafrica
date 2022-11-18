@@ -3,9 +3,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import "../../assets/css/publicStyles/error.css"
 
 
-const Error = ({errorCode, errorTitle, errorDesc, redir="/"}) => {
+const Error = ({errorCode, errorTitle, errorDesc, btnText="Go Back Home", redir="/"}) => {
     return (
-        <section className="gauto-notfound-area section_70">
+   
         <Container>
           <Row>
             <Col md={12}>
@@ -16,13 +16,13 @@ const Error = ({errorCode, errorTitle, errorDesc, redir="/"}) => {
                 <h3>{errorTitle}</h3>
                 <p>{errorDesc}</p>
                 <Link to={redir} className="gauto-btn">
-                  Go Back Home
+                  {btnText}
                 </Link>
               </div>
             </Col>
           </Row>
         </Container>
-      </section>
+    
     );
 };
 

@@ -31,7 +31,7 @@ const rentData = useSelector((state) => state.properties?.properties?.data?.resu
             <PublicHeader/>
             <PageTitle pagesub="Details" pageTitle={data?.propertyName}/>
             <Rent rentDataDetail={data} rentForm={true}/>
-            <Properties rentData={rentData} title="Related Properties" />
+            {/* <Properties rentData={rentData} title="Related Properties" /> */}
         </>
     );
 };

@@ -44,7 +44,7 @@ const RentRequest = () => {
 
         <Block>
             <Block>
-            <Properties rentData={result} cancel={true}/>
+            <Properties rentData={result} cancel={true} loading={data?.loading}/>
             </Block>
           </Block>
       
